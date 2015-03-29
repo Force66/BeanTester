@@ -34,6 +34,7 @@ import org.force66.beantester.tests.ComparableTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.InstantiationUtils;
+import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.junit.Assert;
 import org.mockito.Mockito;
 
@@ -50,9 +51,24 @@ public class BeanTester {
         beanTestList.add(new ComparableTest());
     }
     
+    /**
+     * Given field will be excluded from property-level testing
+     * @param fieldName
+     */
     public void addExcludedField(String fieldName) {
         Validate.notEmpty(fieldName, "Null or blank fieldName not allowed.");
         fieldExclusionSet.add(fieldName);
+    }
+    
+    /**
+     * Values will be used for property-level testing for fields defined with the given class.
+     * @param fieldClass
+     * @param values
+     */
+    public void addTestValues(Class<?> fieldClass, Object[] values) {
+    	Validate.notNull(fieldClass, "Null fieldClass not allowed.");
+    	Validate.notEmpty(values, "Null values array not allowed.");
+    	valueGeneratorFactory.registerGenerator(fieldClass, new GenericValueGenerator(values));
     }
     
     public void testBean(Class<?> beanClass)  {

@@ -6,6 +6,7 @@ In addition to accessors and mutators, toString(), hashcode(), equals(), and clo
 Usage Examples
 ==================
 
+Basic usage example:  
 ```  
 BeanTester beanTester = new BeanTester();
 beanTester.testBean(PerformanceSummaryVO.class);  
@@ -18,5 +19,11 @@ beanTester.addExcludedField("firstOccuranceDt");
 beanTester.addExcludedField("lastOccuranceDt");
 beanTester.addExcludedField("totalNbrExceptions");
 beanTester.testBean(PerformanceSummaryVO.class);  
+```  
+
+Add custom values for proerty-level testing:  
+```  
+BeanTester beanTester = new BeanTester();
+beanTester.addTestValues(PerformanceSummaryVO.class, new Object[]{custom1, custom2});  
 ```  
 

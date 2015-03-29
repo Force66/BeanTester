@@ -13,11 +13,15 @@
  */
 package org.force66.beantester;
 
-import org.junit.Assert;
+import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.force66.beantester.testbeans.CollectionsBean;
 import org.force66.beantester.testbeans.DateBean;
 import org.force66.beantester.testbeans.PrimitiveTypeBean;
+import org.force66.beantester.valuegens.GenericValueGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +51,38 @@ public class BeanTesterTest {
 	public void testDateTypes() throws Exception {
 		beanTester.testBean(DateBean.class);
 		Assert.assertTrue(CallingRegistry.getCalledSet().size() == 16);
+	}
+	
+	@Test
+	public void testAddExcludedField() throws Exception {
+		beanTester.addExcludedField("fred");
+		beanTester.addExcludedField("barney");
+		
+		Set<String> fieldExclusionSet = (Set<String>)FieldUtils.readDeclaredField(beanTester, "fieldExclusionSet", true);
+		Assert.assertTrue(fieldExclusionSet.contains("fred"));
+		Assert.assertTrue(fieldExclusionSet.contains("barney"));
+		Assert.assertTrue(fieldExclusionSet.size() >= 2);
+		
+		try {
+			beanTester.addExcludedField(null);
+			Assert.fail();
+		}
+		catch (Exception e) {
+			Assert.assertTrue(e.getMessage() != null);
+			Assert.assertTrue(e.getMessage().contains("Null or blank fieldName not allowed."));
+		}
+	}
+	
+	@Test
+	public void testAddTestValues() throws Exception {
+		beanTester.addTestValues(String.class, new Object[]{"fred", "barney"});
+		ValueGeneratorFactory valueGeneratorFactory = (ValueGeneratorFactory)FieldUtils.readDeclaredField(beanTester, "valueGeneratorFactory", true);
+		
+		GenericValueGenerator generator = (GenericValueGenerator)valueGeneratorFactory.forClass(String.class);
+		Assert.assertTrue(generator != null);
+		Assert.assertTrue(generator.makeValues().length == 2);
+		Assert.assertTrue(ArrayUtils.contains(generator.makeValues(), "fred"));
+		Assert.assertTrue(ArrayUtils.contains(generator.makeValues(), "barney"));
 	}
 
 }

@@ -23,11 +23,6 @@ public class BooleanValueGenerator implements ValueGenerator<Boolean> {
 	}
 
 	@Override
-	public boolean hasLimitedDomain() {
-		return true;
-	}
-	
-	@Override
 	public boolean canGenerate(Class<?> targetClass) {
 		if (targetClass == null) return false;
 		return (Boolean.class.equals(targetClass) || 

@@ -11,28 +11,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.valuegens;
+
+import org.force66.beantester.ValueGenerator;
 
 /**
- * Generates a value of a specific type.
+ * Generic value generator for provided values.
  * @author D. Ashmore
  *
- * @param <T>
  */
-public interface ValueGenerator<T> {
+public class GenericValueGenerator implements ValueGenerator<Object> {
 	
-	/**
-	 * Will emit a value guaranteed not to have been emitted before.  Will return null if all possible
-	 * values have been emitted.
-	 * @return
-	 */
-	public T[] makeValues();
+	private Object[] values;
 	
-	/**
-	 * Determines if this generator can generate the target class.
-	 * @param targetClass
-	 * @return
-	 */
-	public boolean canGenerate(Class<?> targetClass);
+	public GenericValueGenerator(Object[] values) {
+		this.values = values;
+	}
+
+	@Override
+	public Object[] makeValues() {
+		return values;
+	}
+
+	@Override
+	public boolean canGenerate(Class<?> targetClass) {
+		return true;
+	}
 
 }
