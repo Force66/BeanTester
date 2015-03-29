@@ -13,29 +13,26 @@
  */
 package org.force66.beantester.utils;
 
-import org.apache.commons.lang3.Validate;
-import org.force66.beantester.BeanTesterException;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-/**
- * Helper for class instantiation
- * @author D. Ashmore
- *
- */
-public class InstantiationUtils {
-	
-	/**
-	 * newInstance() execution properly wrapped with exception handling.
-	 * @param klass
-	 * @return
-	 */
-	public static Object safeNewInstance(Class<?> klass) {
-		Validate.notNull(klass, "Null class not allowed.");
+import org.junit.Assert;
+import org.junit.Test;
+
+public class InstantiationUtilsTest {
+
+	@Test
+	public void testBasic() {
+		Object obj = InstantiationUtils.safeNewInstance(Object.class);
+		Assert.assertTrue(obj != null);
+		
 		try {
-			return klass.newInstance();
-		} catch (Exception e) {
-			throw new BeanTesterException("Failed to instantiate bean using newInstance()", e)
-				.addContextValue("className", klass.getName());
-		} 
+			InstantiationUtils.safeNewInstance(XMLGregorianCalendar.class);
+			Assert.fail();
+		}
+		catch (Exception e) {
+			Assert.assertTrue(e.getMessage() != null);
+			Assert.assertTrue(e.getMessage().contains("Failed to instantiate bean using newInstance()"));
+		}
 	}
 
 }
