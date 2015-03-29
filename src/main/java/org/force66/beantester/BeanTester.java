@@ -76,12 +76,12 @@ public class BeanTester {
         }
     }
     
-    public void testProperty(Class<?> beanClass, String fieldName)  {
+    protected void testProperty(Class<?> beanClass, String fieldName)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
         testProperty(InstantiationUtils.safeNewInstance(beanClass), fieldName);
     }
     
-    public void testProperty(Object bean, String fieldName)  {
+    protected void testProperty(Object bean, String fieldName)  {
         Validate.notNull(bean, "Null bean not allowed.");
         Validate.notEmpty(fieldName, "Null or blank fieldName not allowed.");
         
@@ -97,7 +97,7 @@ public class BeanTester {
         testProperty(bean, descriptor);
     }
     
-    private void testProperty(Object bean, PropertyDescriptor descriptor)  {
+    protected void testProperty(Object bean, PropertyDescriptor descriptor)  {
         
         try {
             performNullTest(bean, descriptor);
@@ -116,7 +116,7 @@ public class BeanTester {
         }
     }
     
-    private Object[] generateValues(Class type) {
+    protected Object[] generateValues(Class type) {
 
     	ValueGenerator<?> generator = valueGeneratorFactory.forClass(type);
     	if (generator != null) {
@@ -202,7 +202,7 @@ public class BeanTester {
         return new Object[0];
     }
     
-    private void performBeanTests(Object bean) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    protected void performBeanTests(Object bean) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     	for (BeanTest test: beanTestList) {
     		if (!test.testBeanClass(bean.getClass())) {
     			throw new BeanTesterException("FailedTest")
@@ -216,7 +216,7 @@ public class BeanTester {
         
     }
     
-    private void performValueTest(Object bean,
+    protected void performValueTest(Object bean,
             PropertyDescriptor descriptor, Object value) throws IllegalAccessException,
             InvocationTargetException {
         
@@ -226,7 +226,7 @@ public class BeanTester {
 				new ValuePropertyTest().testProperty(bean, descriptor, value));
     }
 
-    private void performNullTest(Object bean,
+    protected void performNullTest(Object bean,
             PropertyDescriptor descriptor) throws IllegalAccessException,
             InvocationTargetException {
     	
