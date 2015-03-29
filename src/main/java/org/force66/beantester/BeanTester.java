@@ -111,7 +111,7 @@ public class BeanTester {
         }
     }
     
-    protected Object[] generateValues(Class type) {
+    protected Object[] generateValues(Class<?> type) {
 
     	ValueGenerator<?> generator = valueGeneratorFactory.forClass(type);
     	if (generator != null) {
