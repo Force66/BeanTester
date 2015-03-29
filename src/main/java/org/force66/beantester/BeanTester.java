@@ -122,7 +122,6 @@ public class BeanTester {
         	InterfaceValueGenerator gen = new InterfaceValueGenerator(type);
         	this.valueGeneratorFactory.registerGenerator(type, gen);
         	return gen.makeValues();
-//        	return new Object[]{Mockito.mock(type)};
         }
         else if (type.isPrimitive()) {
         	if (type.getName().equals("long")) {
