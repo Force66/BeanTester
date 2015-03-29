@@ -92,27 +92,6 @@ public class BeanTester {
         }
     }
     
-    protected void testProperty(Class<?> beanClass, String fieldName)  {
-        Validate.notNull(beanClass, "Null beanClass not allowed.");
-        testProperty(InstantiationUtils.safeNewInstance(beanClass), fieldName);
-    }
-    
-    protected void testProperty(Object bean, String fieldName)  {
-        Validate.notNull(bean, "Null bean not allowed.");
-        Validate.notEmpty(fieldName, "Null or blank fieldName not allowed.");
-        
-        PropertyDescriptor descriptor=null;
-        try {
-			descriptor=PropertyUtils.getPropertyDescriptor(bean, fieldName);
-		} catch (Exception e) {
-			throw new BeanTesterException("Error determining property descriptor", e)
-				.addContextValue("fieldName", fieldName)
-				.addContextValue("className", bean.getClass().getName());
-		} 
-        
-        testProperty(bean, descriptor);
-    }
-    
     protected void testProperty(Object bean, PropertyDescriptor descriptor)  {
         
         try {
