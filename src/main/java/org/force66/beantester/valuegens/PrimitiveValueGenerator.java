@@ -15,19 +15,31 @@ package org.force66.beantester.valuegens;
 
 import org.force66.beantester.ValueGenerator;
 
-public class BooleanValueGenerator implements ValueGenerator<Boolean> {
+public class PrimitiveValueGenerator implements ValueGenerator<Object> {
+	
+	private Object[] values;
+	private Class<?> typeWithPrimitive;
+	private String primitiveName;
+	
+	public PrimitiveValueGenerator(Class<?> typeWithPrimitive, Object[] values) {
+		this(typeWithPrimitive, typeWithPrimitive.getSimpleName().toLowerCase() ,values);
+	}
+	public PrimitiveValueGenerator(Class<?> typeWithPrimitive, String primitiveName, Object[] values) {
+		this.typeWithPrimitive = typeWithPrimitive;
+		this.values = values;
+		this.primitiveName = primitiveName;
+	}
 
 	@Override
-	public Boolean[] makeValues() {
-		return new Boolean[]{Boolean.TRUE, Boolean.FALSE};
+	public Object[] makeValues() {
+		return values;
 	}
 
 	@Override
 	public boolean canGenerate(Class<?> targetClass) {
 		if (targetClass == null) return false;
-		return (Boolean.class.equals(targetClass) || 
-				(targetClass.isPrimitive() && targetClass.getName().equals("boolean")));
+		return typeWithPrimitive.equals(targetClass) || 
+				targetClass.getName().equals(primitiveName);
 	}
-
 
 }

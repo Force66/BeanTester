@@ -13,7 +13,7 @@
  */
 package org.force66.beantester;
 
-import org.force66.beantester.valuegens.BooleanValueGenerator;
+import org.force66.beantester.valuegens.PrimitiveValueGenerator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +62,7 @@ public class ValueGeneratorFactoryTest {
 			// NoOp
 		}
 		
-		Assert.assertTrue(factory.forClass(Boolean.class) instanceof BooleanValueGenerator);
+		Assert.assertTrue(factory.forClass(Boolean.class) instanceof PrimitiveValueGenerator);
 	}
 
 }

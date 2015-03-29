@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.valuegens.BooleanValueGenerator;
+import org.force66.beantester.valuegens.PrimitiveValueGenerator;
 
 /**
  * Will determine an appropriate ValueGenerator for a specific class.
@@ -27,7 +27,15 @@ import org.force66.beantester.valuegens.BooleanValueGenerator;
 public class ValueGeneratorFactory {
 	
 	private static final ValueGenerator<?>[] STOCK_GENERATORS = new ValueGenerator<?>[]{
-		new BooleanValueGenerator()
+		new PrimitiveValueGenerator(Boolean.class, new Object[]{Boolean.TRUE, Boolean.FALSE})
+		,new PrimitiveValueGenerator(Long.class, new Object[]{Long.valueOf(0)})
+		,new PrimitiveValueGenerator(Integer.class, "int", new Object[]{Integer.valueOf(0)})
+		,new PrimitiveValueGenerator(Double.class, new Object[]{Double.valueOf(0)})
+		,new PrimitiveValueGenerator(Byte.class, new Object[]{Byte.MIN_VALUE})
+		,new PrimitiveValueGenerator(Float.class, new Object[]{Float.valueOf(0)})
+		,new PrimitiveValueGenerator(Short.class, new Object[]{ Short.valueOf("0")})
+		,new PrimitiveValueGenerator(Character.class, "char", new Object[]{ 'A'})
+
 	};
 	
 	private Map<Class<?>,ValueGenerator<?>> registeredGeneratorMap = new HashMap<Class<?>, ValueGenerator<?>>();

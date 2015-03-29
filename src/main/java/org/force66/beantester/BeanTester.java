@@ -123,50 +123,6 @@ public class BeanTester {
         	this.valueGeneratorFactory.registerGenerator(type, gen);
         	return gen.makeValues();
         }
-        else if (type.isPrimitive()) {
-        	if (type.getName().equals("long")) {
-                return new Object[]{Long.valueOf(0)};
-            }
-            else if (type.getName().equals("int")) {
-                return new Object[]{Integer.valueOf(0)};
-            }
-            else if (type.getName().equals("double")) {
-                return new Object[]{Double.valueOf(0)};
-            }
-            else if (type.getName().equals("byte")) {
-                return new Object[]{Byte.valueOf("1")};
-            }
-            else if (type.getName().equals("float")) {
-                return new Object[]{Float.valueOf("1")};
-            }
-            else if (type.getName().equals("short")) {
-                return new Object[]{Short.valueOf("1")};
-            }
-            else if (type.getName().equals("char")) {
-                return new Object[]{Character.valueOf('A')};
-            }
-        }
-        else if (Long.class.equals(type)) {
-            return new Object[]{Long.valueOf(0)};
-        }
-        else if (Integer.class.equals(type)) {
-            return new Object[]{Integer.valueOf(0)};
-        }
-        else if (Double.class.equals(type)) {
-            return new Object[]{Double.valueOf(0)};
-        }
-        else if (Byte.class.equals(type)) {
-            return new Object[]{Byte.valueOf("1")};
-        }
-        else if (Float.class.equals(type)) {
-            return new Object[]{Float.valueOf("1")};
-        }
-        else if (Short.class.equals(type)) {
-            return new Object[]{Short.valueOf("1")};
-        }
-        else if (Character.class.equals(type)) {
-            return new Object[]{Character.valueOf('A')};
-        }
         else if (Timestamp.class.equals(type)) {
             return new Object[]{new Timestamp(System.currentTimeMillis())};
         }

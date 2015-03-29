@@ -18,6 +18,7 @@ import java.sql.Statement;
 public class OddTypesBean extends BaseBean {
 	
 	private Statement interfaceType;
+	private String[]  stringArray;
 
 	public Statement getInterfaceType() {
 		return interfaceType;
@@ -25,6 +26,14 @@ public class OddTypesBean extends BaseBean {
 
 	public void setInterfaceType(Statement interfaceType) {
 		this.interfaceType = interfaceType;
+	}
+
+	public String[] getStringArray() {
+		return stringArray;
+	}
+
+	public void setStringArray(String[] stringArray) {
+		this.stringArray = stringArray;
 	}
 
 }
