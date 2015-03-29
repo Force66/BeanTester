@@ -35,8 +35,8 @@ import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
+import org.force66.beantester.valuegens.InterfaceValueGenerator;
 import org.junit.Assert;
-import org.mockito.Mockito;
 
 public class BeanTester {
     
@@ -119,7 +119,10 @@ public class BeanTester {
     	}
     	
         if (type.isInterface()) {
-        	return new Object[]{Mockito.mock(type)};
+        	InterfaceValueGenerator gen = new InterfaceValueGenerator(type);
+        	this.valueGeneratorFactory.registerGenerator(type, gen);
+        	return gen.makeValues();
+//        	return new Object[]{Mockito.mock(type)};
         }
         else if (type.isPrimitive()) {
         	if (type.getName().equals("long")) {

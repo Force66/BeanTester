@@ -19,6 +19,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.force66.beantester.testbeans.CollectionsBean;
 import org.force66.beantester.testbeans.DateBean;
+import org.force66.beantester.testbeans.OddTypesBean;
 import org.force66.beantester.testbeans.PrimitiveTypeBean;
 import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.junit.Assert;
@@ -51,6 +52,12 @@ public class BeanTesterTest {
 	public void testDateTypes() throws Exception {
 		beanTester.testBean(DateBean.class);
 		Assert.assertTrue(CallingRegistry.getCalledSet().size() == 16);
+	}
+	
+	@Test
+	public void testOddTypes() throws Exception {
+		beanTester.testBean(OddTypesBean.class);
+		Assert.assertTrue(CallingRegistry.getCalledSet().size() >2);
 	}
 	
 	@Test
