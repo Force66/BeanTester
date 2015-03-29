@@ -153,7 +153,7 @@
 				<version>1.7</version>
 				<executions>
 					<execution>
-						<phase>install</phase>
+						<phase>deploy</phase>
 						<configuration>
 							<tasks>
 								<property environment="env" />
