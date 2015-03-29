@@ -11,17 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
-
 /**
- * Interface for performing a bean-level test
+ * Generic BeanTester utilities
  * @author D. Ashmore
  *
  */
-public interface BeanTest {
-	
-	public boolean testBeanClass(Class<?> klass);
-	
-	public String getFailureReason();
-
-}
+package org.force66.beantester.utils;

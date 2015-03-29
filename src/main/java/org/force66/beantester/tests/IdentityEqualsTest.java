@@ -11,17 +11,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.tests;
+
+import org.force66.beantester.utils.InstantiationUtils;
 
 /**
- * Interface for performing a bean-level test
+ *  Makes sure that a bean 'equals' itself
  * @author D. Ashmore
  *
  */
-public interface BeanTest {
+public class IdentityEqualsTest extends BaseBeanTest {
 	
-	public boolean testBeanClass(Class<?> klass);
+	@Override
+	public boolean testBeanClass(Class<?> klass) {
+		Object instance1 = InstantiationUtils.safeNewInstance(klass);
+		boolean answer = instance1.equals(instance1);
+		if (answer) {
+			this.setFailureReason(null);
+		}
+		else {
+			this.setFailureReason("This bean doesn not equal itself:  bean.equals(bean)");			
+		}
+		return answer;
+	}
 	
-	public String getFailureReason();
-
 }

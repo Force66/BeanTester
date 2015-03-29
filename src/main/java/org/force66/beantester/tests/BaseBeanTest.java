@@ -11,17 +11,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.tests;
+
+import org.force66.beantester.BeanTest;
 
 /**
- * Interface for performing a bean-level test
+ * Base implmenetation of BeanTest
  * @author D. Ashmore
  *
  */
-public interface BeanTest {
+abstract class BaseBeanTest implements BeanTest {
 	
-	public boolean testBeanClass(Class<?> klass);
-	
-	public String getFailureReason();
+	private String failureReason;
+
+	@Override
+	public String getFailureReason() {
+		return failureReason;
+	}
+
+	protected void setFailureReason(String failureReason) {
+		this.failureReason = failureReason;
+	}
 
 }

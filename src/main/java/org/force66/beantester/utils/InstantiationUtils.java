@@ -11,17 +11,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.utils;
+
+import org.apache.commons.lang3.Validate;
+import org.force66.beantester.BeanTesterException;
 
 /**
- * Interface for performing a bean-level test
+ * Helper for class instantiation
  * @author D. Ashmore
  *
  */
-public interface BeanTest {
+public class InstantiationUtils {
 	
-	public boolean testBeanClass(Class<?> klass);
-	
-	public String getFailureReason();
+	public static Object safeNewInstance(Class<?> klass) {
+		Validate.notNull(klass, "Null class not allowed.");
+		try {
+			return klass.newInstance();
+		} catch (Exception e) {
+			throw new BeanTesterException("Failed to instantiate bean using newInstance()", e)
+				.addContextValue("className", klass.getName());
+		} 
+	}
 
 }

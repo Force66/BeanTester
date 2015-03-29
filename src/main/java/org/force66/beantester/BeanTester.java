@@ -18,7 +18,9 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -27,9 +29,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.exception.ContextedRuntimeException;
-import org.apache.commons.lang3.reflect.MethodUtils;
+import org.force66.beantester.tests.ClonableTest;
+import org.force66.beantester.tests.ComparableTest;
+import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.ValuePropertyTest;
+import org.force66.beantester.utils.InstantiationUtils;
 import org.junit.Assert;
 import org.mockito.Mockito;
 
@@ -37,9 +41,13 @@ public class BeanTester {
     
     private Set<String> fieldExclusionSet = new HashSet<String>();
     private ValueGeneratorFactory valueGeneratorFactory = new ValueGeneratorFactory();
-    
+    private List<BeanTest> beanTestList = new ArrayList<BeanTest>();
+
     public BeanTester() {
         fieldExclusionSet.add("class"); // Object.class shouldn't be tested.
+        beanTestList.add(new IdentityEqualsTest());
+        beanTestList.add(new ClonableTest());
+        beanTestList.add(new ComparableTest());
     }
     
     public void addExcludedField(String fieldName) {
@@ -47,20 +55,17 @@ public class BeanTester {
         fieldExclusionSet.add(fieldName);
     }
     
-    public void testBean(Class beanClass) 
-            throws NoSuchMethodException, IllegalAccessException, 
-                InvocationTargetException, InstantiationException {
+    public void testBean(Class<?> beanClass)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
-        testBean(beanClass.newInstance());
+        testBean(InstantiationUtils.safeNewInstance(beanClass));
     }
     
-    public void testBean(Object bean) 
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    protected void testBean(Object bean) {
         Validate.notNull(bean, "Null bean not allowed.");
         
         try {performBeanTests(bean);}
         catch (Exception e) {
-            throw new ContextedRuntimeException(e)
+            throw new BeanTesterException(e)
             .addContextValue("bean type", bean.getClass().getName());
         }
         
@@ -71,21 +76,28 @@ public class BeanTester {
         }
     }
     
-    public void testProperty(Class beanClass, String fieldName) 
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void testProperty(Class<?> beanClass, String fieldName)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
-        testProperty(beanClass.newInstance(), fieldName);
+        testProperty(InstantiationUtils.safeNewInstance(beanClass), fieldName);
     }
     
-    public void testProperty(Object bean, String fieldName) 
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public void testProperty(Object bean, String fieldName)  {
         Validate.notNull(bean, "Null bean not allowed.");
         Validate.notEmpty(fieldName, "Null or blank fieldName not allowed.");
-        testProperty(bean, PropertyUtils.getPropertyDescriptor(bean, fieldName));
+        
+        PropertyDescriptor descriptor=null;
+        try {
+			descriptor=PropertyUtils.getPropertyDescriptor(bean, fieldName);
+		} catch (Exception e) {
+			throw new BeanTesterException("Error determining property descriptor", e)
+				.addContextValue("fieldName", fieldName)
+				.addContextValue("className", bean.getClass().getName());
+		} 
+        
+        testProperty(bean, descriptor);
     }
     
-    private void testProperty(Object bean, PropertyDescriptor descriptor) 
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private void testProperty(Object bean, PropertyDescriptor descriptor)  {
         
         try {
             performNullTest(bean, descriptor);
@@ -93,12 +105,12 @@ public class BeanTester {
                 performValueTest(bean, descriptor, value);
             }
         }
-        catch (ContextedRuntimeException are) {
+        catch (BeanTesterException are) {
             throw are.addContextValue("bean type", bean.getClass().getName())
                 .addContextValue("field", descriptor.getName());
         }
         catch (Exception e) {
-            throw new ContextedRuntimeException(e)
+            throw new BeanTesterException(e)
             .addContextValue("bean type", bean.getClass().getName())
             .addContextValue("field", descriptor.getName());
         }
@@ -184,31 +196,24 @@ public class BeanTester {
         	return new Object[]{Object.class};
         }
         else {
-            try {
-                Object value = type.newInstance();
-                return new Object[]{value};
-            }
-            catch (Exception e) {
-                throw new BeanTesterException("Error invoking null constructor", e).addContextValue("class", type.getName());
-            }
+        	return new Object[]{InstantiationUtils.safeNewInstance(type)};
         }
         
         return new Object[0];
     }
     
     private void performBeanTests(Object bean) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Assert.assertTrue("Equals test on class " + bean.getClass().getName() + " did not pass", bean.equals(bean));
+    	for (BeanTest test: beanTestList) {
+    		if (!test.testBeanClass(bean.getClass())) {
+    			throw new BeanTesterException("FailedTest")
+    			.addContextValue("test", test.getClass().getName())
+    			.addContextValue("failure reason", test.getFailureReason());
+    		}
+    	}
+ 
         Assert.assertTrue("Hashcode test on class " + bean.getClass().getName() + " did not pass", bean.hashCode() == bean.hashCode());
         Assert.assertTrue("ToString test on class " + bean.getClass().getName() + " did not pass", bean.toString() != null);
         
-        if (bean instanceof Cloneable) {
-            Assert.assertTrue("Cloneable test on class " + bean.getClass().getName() + " did not pass"
-                    , MethodUtils.invokeMethod(bean, "clone", null) != null);
-        }
-        if (bean instanceof Comparable) {
-        	Assert.assertTrue("Comparable test on class " + bean.getClass().getName() + " did not pass"
-                    , MethodUtils.invokeMethod(bean, "compareTo", bean).equals(0));
-        }
     }
     
     private void performValueTest(Object bean,
