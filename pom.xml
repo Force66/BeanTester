@@ -75,9 +75,6 @@
 						<includes>
 							<include>org/force66/**/*.class</include>
 						</includes>
-						<excludes>
-							<exclude>org/force66/**/*Test.class</exclude>
-						</excludes>
 					</instrumentation>
 
 				</configuration>
