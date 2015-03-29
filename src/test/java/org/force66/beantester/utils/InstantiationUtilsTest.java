@@ -33,6 +33,8 @@ public class InstantiationUtilsTest {
 			Assert.assertTrue(e.getMessage() != null);
 			Assert.assertTrue(e.getMessage().contains("Failed to instantiate bean using newInstance()"));
 		}
+		
+		Assert.assertTrue(new InstantiationUtils() != null);
 	}
 
 }
