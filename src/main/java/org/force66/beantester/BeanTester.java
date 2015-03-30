@@ -32,6 +32,7 @@ import org.apache.commons.lang3.Validate;
 import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
+import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
@@ -49,6 +50,7 @@ public class BeanTester {
         beanTestList.add(new IdentityEqualsTest());
         beanTestList.add(new ClonableTest());
         beanTestList.add(new ComparableTest());
+        beanTestList.add(new ToStringTest());
     }
     
     /**
