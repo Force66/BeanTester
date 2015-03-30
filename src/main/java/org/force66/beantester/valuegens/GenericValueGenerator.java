@@ -13,6 +13,7 @@
  */
 package org.force66.beantester.valuegens;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.force66.beantester.ValueGenerator;
 
 /**
@@ -35,7 +36,10 @@ public class GenericValueGenerator implements ValueGenerator<Object> {
 
 	@Override
 	public boolean canGenerate(Class<?> targetClass) {
-		return true;
+		if (values.length > 0) {
+			return ClassUtils.isAssignable(values[0].getClass(), targetClass);
+		}
+		return false;
 	}
 
 }

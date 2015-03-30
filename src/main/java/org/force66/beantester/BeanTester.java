@@ -21,10 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.tests.ClonableTest;
@@ -123,13 +119,6 @@ public class BeanTester {
         	InterfaceValueGenerator gen = new InterfaceValueGenerator(type);
         	this.valueGeneratorFactory.registerGenerator(type, gen);
         	return gen.makeValues();
-        }
-        else if (XMLGregorianCalendar.class.equals(type)) {
-            try {
-				return new Object[]{DatatypeFactory.newInstance().newXMLGregorianCalendar()};
-			} catch (DatatypeConfigurationException e) {
-				throw new BeanTesterException("This shouldn't happen", e);
-			}
         }
         else if (type.isEnum()) {
             return type.getEnumConstants();

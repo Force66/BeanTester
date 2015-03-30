@@ -13,6 +13,10 @@
  */
 package org.force66.beantester.utils;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.BeanTesterException;
 
@@ -36,6 +40,14 @@ public class InstantiationUtils {
 			throw new BeanTesterException("Failed to instantiate bean using newInstance()", e)
 				.addContextValue("className", klass.getName());
 		} 
+	}
+	
+	public static XMLGregorianCalendar newXMLGregorianCalendar() {
+		try {
+			return DatatypeFactory.newInstance().newXMLGregorianCalendar();
+		} catch (DatatypeConfigurationException e) {
+			throw new BeanTesterException("This shouldn't happen", e);
+		}
 	}
 
 }

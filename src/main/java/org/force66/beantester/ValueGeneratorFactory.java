@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
+import org.force66.beantester.utils.InstantiationUtils;
+import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.force66.beantester.valuegens.PrimitiveValueGenerator;
 import org.force66.beantester.valuegens.TemporalValueGenerator;
 
@@ -40,6 +42,7 @@ public class ValueGeneratorFactory {
 		,new TemporalValueGenerator(java.sql.Date.class)
 		,new TemporalValueGenerator(java.sql.Time.class)
 		,new TemporalValueGenerator(java.sql.Timestamp.class)
+		,new GenericValueGenerator(new Object[]{InstantiationUtils.newXMLGregorianCalendar()})
 	};
 	
 	private Map<Class<?>,ValueGenerator<?>> registeredGeneratorMap = new HashMap<Class<?>, ValueGenerator<?>>();
