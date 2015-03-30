@@ -16,8 +16,6 @@ package org.force66.beantester;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +36,6 @@ import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.force66.beantester.valuegens.InterfaceValueGenerator;
-import org.junit.Assert;
 
 public class BeanTester {
     
@@ -164,21 +161,26 @@ public class BeanTester {
     protected void performValueTest(Object bean,
             PropertyDescriptor descriptor, Object value) throws IllegalAccessException,
             InvocationTargetException {
-        
-		Assert.assertTrue("Field " + descriptor.getName()
-				+ " on class " + bean.getClass().getName()
-				+ " did not pass value test", 
-				new ValuePropertyTest().testProperty(bean, descriptor, value));
+    	
+    	if (!new ValuePropertyTest().testProperty(bean, descriptor, value)) {
+    		throw new BeanTesterException("Property test failed")
+    			.addContextValue("fieldName", descriptor.getName())
+    			.addContextValue("class", bean.getClass().getName())
+    			.addContextValue("test value", value);
+    	}
+
     }
 
     protected void performNullTest(Object bean,
             PropertyDescriptor descriptor) throws IllegalAccessException,
             InvocationTargetException {
-    	
-    	Assert.assertTrue("Field " + descriptor.getName() + " on class " 
-    			+ bean.getClass().getName() + " did not pass null test", 
-    			new ValuePropertyTest().testProperty(bean, descriptor, null));
-        
+    	if (!new ValuePropertyTest().testProperty(bean, descriptor, null)) {
+    		throw new BeanTesterException("Property test failed")
+    			.addContextValue("fieldName", descriptor.getName())
+    			.addContextValue("class", bean.getClass().getName())
+    			.addContextValue("test value", null);
+    	}
+         
     }
 
 }
