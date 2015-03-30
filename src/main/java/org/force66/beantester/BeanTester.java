@@ -127,15 +127,6 @@ public class BeanTester {
         	this.valueGeneratorFactory.registerGenerator(type, gen);
         	return gen.makeValues();
         }
-        else if (Timestamp.class.equals(type)) {
-            return new Object[]{new Timestamp(System.currentTimeMillis())};
-        }
-        else if (Time.class.equals(type)) {
-            return new Object[]{new Time(System.currentTimeMillis())};
-        }
-        else if (java.sql.Date.class.equals(type)) {
-            return new Object[]{new java.sql.Date(System.currentTimeMillis())};
-        }
         else if (XMLGregorianCalendar.class.equals(type)) {
             try {
 				return new Object[]{DatatypeFactory.newInstance().newXMLGregorianCalendar()};

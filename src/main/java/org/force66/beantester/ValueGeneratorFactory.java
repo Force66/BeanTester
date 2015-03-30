@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.valuegens.PrimitiveValueGenerator;
+import org.force66.beantester.valuegens.TemporalValueGenerator;
 
 /**
  * Will determine an appropriate ValueGenerator for a specific class.
@@ -35,7 +36,10 @@ public class ValueGeneratorFactory {
 		,new PrimitiveValueGenerator(Float.class, new Object[]{Float.valueOf(0)})
 		,new PrimitiveValueGenerator(Short.class, new Object[]{ Short.valueOf("0")})
 		,new PrimitiveValueGenerator(Character.class, "char", new Object[]{ 'A'})
-
+		,new TemporalValueGenerator(java.util.Date.class)
+		,new TemporalValueGenerator(java.sql.Date.class)
+		,new TemporalValueGenerator(java.sql.Time.class)
+		,new TemporalValueGenerator(java.sql.Timestamp.class)
 	};
 	
 	private Map<Class<?>,ValueGenerator<?>> registeredGeneratorMap = new HashMap<Class<?>, ValueGenerator<?>>();
