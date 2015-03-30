@@ -31,6 +31,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
+import org.force66.beantester.tests.HashcodeTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.tests.ValuePropertyTest;
@@ -51,6 +52,7 @@ public class BeanTester {
         beanTestList.add(new ClonableTest());
         beanTestList.add(new ComparableTest());
         beanTestList.add(new ToStringTest());
+        beanTestList.add(new HashcodeTest());
     }
     
     /**
@@ -165,10 +167,7 @@ public class BeanTester {
     			.addContextValue("failure reason", test.getFailureReason());
     		}
     	}
- 
-        Assert.assertTrue("Hashcode test on class " + bean.getClass().getName() + " did not pass", bean.hashCode() == bean.hashCode());
-        Assert.assertTrue("ToString test on class " + bean.getClass().getName() + " did not pass", bean.toString() != null);
-        
+       
     }
     
     protected void performValueTest(Object bean,
