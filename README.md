@@ -1,7 +1,18 @@
 # BeanTester
-*** Under Construction *** Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.
+Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.  If your organization has code coverage requirements, testing beans is some of the most monotonous work.  It's mindless and the less test code you need to write for this, the better.  BeanTester was written to get out of this monotonous work.  Predecessors to it have been copy/pasted/improved into almost a dozen projects over the years.  
 
-In addition to accessors and mutators, toString(), hashcode(), equals(), and clone() are also tested.
+Specifically, the following tests are performed:  
+* All accessors (e.g. setXXX() methods) execute without exception    
+* All mutators (e.g. getXXX() methods) execute without exception  
+* accessors return the value assigned to them via their corresponding mutator (e.g. getXXX() returns the same value submitted with setXXX())  
+* An instance equals() itself  
+* hashcode() runs without exception    
+* hashcode() is constant over time if no changes are made to it  
+* clone() executes without exception  
+* clone() equals the instance from which it was produced  
+
+Additional detail in the 'Usage Instrcutions and Examples' section.
+
 
 System Requirements
 ==================

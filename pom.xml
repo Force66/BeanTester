@@ -15,6 +15,9 @@
 		<developer>
 			<name>Derek C. Ashmore</name>
 		</developer>
+		<developer>
+			<name>David K. Greenfield</name>
+		</developer>
 	</developers>
 	
 	<dependencies>

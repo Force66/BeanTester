@@ -14,7 +14,7 @@
 package org.force66.beantester.tests;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.force66.beantester.BeanTesterException;
+import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 
 /**

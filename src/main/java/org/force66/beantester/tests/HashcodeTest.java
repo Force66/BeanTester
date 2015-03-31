@@ -13,7 +13,7 @@
  */
 package org.force66.beantester.tests;
 
-import org.force66.beantester.BeanTesterException;
+import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 
 /**

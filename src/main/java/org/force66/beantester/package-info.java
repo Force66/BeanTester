@@ -12,7 +12,14 @@
  * limitations under the License.
  */
 /**
- * Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.
+ * <p>Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.  
+ * If your organization has code coverage requirements, testing beans is some of the 
+ * most monotonous work.  It's mindless and the less test code you need to write 
+ * for this, the better.  BeanTester was written to get out of this monotonous work.  
+ * Predecessors to it have been copy/pasted/improved into almost a dozen projects 
+ * over the years.  </p>
+ * 
+ * <p>Documentation for the product can be found <a href="https://github.com/Force66/BeanTester">here</a>.</p>
  * @author D. Ashmore
  *
  */

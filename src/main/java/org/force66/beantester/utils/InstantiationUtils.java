@@ -18,7 +18,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.BeanTesterException;
 
 /**
  * Helper for class instantiation

@@ -27,7 +27,7 @@ import org.force66.beantester.valuegens.TemporalValueGenerator;
  * @author D. Ashmore
  *
  */
-public class ValueGeneratorFactory {
+class ValueGeneratorFactory {
 	
 	private static final ValueGenerator<?>[] STOCK_GENERATORS = new ValueGenerator<?>[]{
 		new PrimitiveValueGenerator(Boolean.class, new Object[]{Boolean.TRUE, Boolean.FALSE})

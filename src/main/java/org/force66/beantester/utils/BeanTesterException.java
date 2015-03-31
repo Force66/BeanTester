@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.utils;
 
 import org.apache.commons.lang3.exception.ContextedRuntimeException;
 

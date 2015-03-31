@@ -29,10 +29,19 @@ import org.force66.beantester.tests.HashcodeTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.tests.ValuePropertyTest;
+import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.force66.beantester.valuegens.InterfaceValueGenerator;
 
+/**
+ * <p>Main user class for the BeanTester product.  BeanTester performs monotonous testing on normal
+ * java beans for accessors, mutators, equals(), hashcode(), toString() so you don't have to write those tests.</p>
+ * 
+ * <p>Documentation for the product can be found <a href="https://github.com/Force66/BeanTester">here</a>.</p>
+ * @author D. Ashmore
+ *
+ */
 public class BeanTester {
     
     private Set<String> fieldExclusionSet = new HashSet<String>();
