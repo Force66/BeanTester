@@ -25,8 +25,8 @@ import org.force66.beantester.utils.InstantiationUtils;
 public class ComparableTest extends BaseBeanTest {
 
 	@Override
-	public boolean testBeanClass(Class<?> klass) {
-		Object bean = InstantiationUtils.safeNewInstance(klass);
+	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
+		Object bean = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		if (bean instanceof Comparable) {
 			Integer compareResult = -1;
 			try {

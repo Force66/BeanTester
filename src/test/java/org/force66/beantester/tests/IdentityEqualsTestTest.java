@@ -29,11 +29,11 @@ public class IdentityEqualsTestTest {
 
 	@Test
 	public void testBasic() {
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == false);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == false);
 		Assert.assertTrue(StringUtils.isNotEmpty(test.getFailureReason()));
 		
 		TestBean.isEquals=true;
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == true);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
 		Assert.assertTrue(StringUtils.isEmpty(test.getFailureReason()));
 	}
 	

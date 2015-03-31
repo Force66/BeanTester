@@ -28,11 +28,11 @@ public class ToStringTestTest {
 
 	@Test
 	public void test() {
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == true);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
 		
 		TestBean.exceptionToThrow = new RuntimeException("splat");
 		try {
-			test.testBeanClass(TestBean.class);
+			test.testBeanClass(TestBean.class, null);
 			Assert.fail();
 		}
 		catch (Exception e) {

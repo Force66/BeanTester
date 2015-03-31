@@ -31,20 +31,20 @@ public class HashcodeTestTest {
 
 	@Test
 	public void test() {
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == true);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
 		Assert.assertTrue(StringUtils.isEmpty(test.getFailureReason()));
 		
 		TestBean.makedifferent = true;
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == false);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == false);
 		Assert.assertTrue(StringUtils.isNotEmpty(test.getFailureReason()));
 		
 		TestBean.makedifferent = false;
-		Assert.assertTrue(test.testBeanClass(TestBean.class) == true);
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
 		Assert.assertTrue(StringUtils.isEmpty(test.getFailureReason()));
 		
 		TestBean.exceptionToThrow = new RuntimeException("splat");
 		try {
-			test.testBeanClass(TestBean.class);
+			test.testBeanClass(TestBean.class, null);
 			Assert.fail();
 		}
 		catch (Exception e) {

@@ -36,5 +36,12 @@ public class InstantiationUtilsTest {
 		
 		Assert.assertTrue(new InstantiationUtils() != null);
 	}
+	
+	@Test
+	public void testConstructorArgs() {
+		Integer obj = (Integer)InstantiationUtils.safeNewInstance(Integer.class, new Object[]{"0"});
+		Assert.assertTrue(obj != null);
+		Assert.assertTrue(obj.toString().equals("0"));
+	}
 
 }

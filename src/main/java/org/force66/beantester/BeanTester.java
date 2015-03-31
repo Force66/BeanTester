@@ -78,14 +78,18 @@ public class BeanTester {
     }
     
     public void testBean(Class<?> beanClass)  {
-        Validate.notNull(beanClass, "Null beanClass not allowed.");
-        testBean(InstantiationUtils.safeNewInstance(beanClass));
+    	this.testBean(beanClass, null);
     }
     
-    protected void testBean(Object bean) {
+    public void testBean(Class<?> beanClass, Object[] constructorArgs)  {
+        Validate.notNull(beanClass, "Null beanClass not allowed.");
+        testBean(InstantiationUtils.safeNewInstance(beanClass, constructorArgs), constructorArgs);
+    }
+    
+    protected void testBean(Object bean, Object[] constructorArgs) {
         Validate.notNull(bean, "Null bean not allowed.");
         
-        try {performBeanTests(bean);}
+        try {performBeanTests(bean, constructorArgs);}
         catch (Exception e) {
             throw new BeanTesterException(e)
             .addContextValue("bean type", bean.getClass().getName());
@@ -145,9 +149,9 @@ public class BeanTester {
         return new Object[0];
     }
     
-    protected void performBeanTests(Object bean) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    protected void performBeanTests(Object bean, Object[] constructorArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     	for (BeanTest test: beanTestList) {
-    		if (!test.testBeanClass(bean.getClass())) {
+    		if (!test.testBeanClass(bean.getClass(), constructorArgs)) {
     			throw new BeanTesterException("FailedTest")
     			.addContextValue("test", test.getClass().getName())
     			.addContextValue("failure reason", test.getFailureReason());

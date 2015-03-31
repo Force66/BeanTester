@@ -43,6 +43,12 @@ BeanTester beanTester = new BeanTester();
 beanTester.testBean(PerformanceSummaryVO.class);  
 ```  
 
+If your bean does *not* have a null constructor, you must provide construction arguments:
+```  
+BeanTester beanTester = new BeanTester();
+beanTester.testBean(Integer.class, new Object[]{"0"});  
+```  
+
 Exclude specific fields from the test if needed.
 ```  
 BeanTester beanTester = new BeanTester();

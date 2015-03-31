@@ -17,6 +17,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -26,15 +27,19 @@ import org.apache.commons.lang3.Validate;
  */
 public class InstantiationUtils {
 	
+	public static Object safeNewInstance(Class<?> klass) {
+		return safeNewInstance(klass, null);
+	}
+	
 	/**
 	 * newInstance() execution properly wrapped with exception handling.
 	 * @param klass
 	 * @return
 	 */
-	public static Object safeNewInstance(Class<?> klass) {
+	public static Object safeNewInstance(Class<?> klass, Object[] constructorArgs) {
 		Validate.notNull(klass, "Null class not allowed.");
 		try {
-			return klass.newInstance();
+			return ConstructorUtils.invokeConstructor(klass, constructorArgs);
 		} catch (Exception e) {
 			throw new BeanTesterException("Failed to instantiate bean using newInstance()", e)
 				.addContextValue("className", klass.getName());

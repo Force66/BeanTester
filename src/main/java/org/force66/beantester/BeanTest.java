@@ -20,7 +20,7 @@ package org.force66.beantester;
  */
 public interface BeanTest {
 	
-	public boolean testBeanClass(Class<?> klass);
+	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs);
 	
 	public String getFailureReason();
 

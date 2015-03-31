@@ -24,8 +24,8 @@ import org.force66.beantester.utils.InstantiationUtils;
 public class ToStringTest extends BaseBeanTest {
 
 	@Override
-	public boolean testBeanClass(Class<?> klass) {
-		Object instance1 = InstantiationUtils.safeNewInstance(klass);
+	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
+		Object instance1 = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		try {
 			instance1.toString();
 			return true;

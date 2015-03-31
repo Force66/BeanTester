@@ -23,8 +23,8 @@ import org.force66.beantester.utils.InstantiationUtils;
 public class IdentityEqualsTest extends BaseBeanTest {
 	
 	@Override
-	public boolean testBeanClass(Class<?> klass) {
-		Object instance1 = InstantiationUtils.safeNewInstance(klass);
+	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
+		Object instance1 = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		boolean answer = instance1.equals(instance1);
 		if (answer) {
 			this.setFailureReason(null);
