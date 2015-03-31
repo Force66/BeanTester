@@ -10,6 +10,8 @@ Specifically, the following tests are performed:
 * hashcode() is constant over time if no changes are made to it  
 * clone() executes without exception  
 * clone() equals the instance from which it was produced  
+* compareTo() executes without exception  
+* An instance compareTo() is 0 when compared to itself  
 
 Additional detail in the 'Usage Instrcutions and Examples' section.
 
