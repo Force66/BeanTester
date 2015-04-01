@@ -31,9 +31,7 @@ import org.force66.beantester.CallingRegistry;
  * @author D. Ashmore
  *
  */
-public abstract class BaseBean implements Serializable, Cloneable {
-
-    private static final long serialVersionUID = 2618192279106780874L;
+public abstract class BaseBean implements Cloneable {
 
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()

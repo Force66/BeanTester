@@ -13,9 +13,13 @@
  */
 package org.force66.beantester.testbeans;
 
+import java.io.Serializable;
+
 import org.force66.beantester.CallingRegistry;
 
-public class PrimitiveTypeBean extends BaseBean {
+public class PrimitiveTypeBean extends BaseBean implements Serializable {
+	
+	private static final long serialVersionUID = -687007182169761400L;
 	
 	private short   shortValue;
 	private int     intValue;

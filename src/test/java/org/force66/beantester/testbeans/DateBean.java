@@ -13,13 +13,16 @@
  */
 package org.force66.beantester.testbeans;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.force66.beantester.CallingRegistry;
 
-public class DateBean extends BaseBean {
+public class DateBean extends BaseBean implements Serializable {
+	
+	private static final long serialVersionUID = -6175954579083249160L;
 	
 	private java.util.Date			utilDateValue;
 	private java.sql.Date			sqlDateValue;

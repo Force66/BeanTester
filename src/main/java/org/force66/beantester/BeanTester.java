@@ -26,6 +26,7 @@ import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
 import org.force66.beantester.tests.HashcodeTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
+import org.force66.beantester.tests.SerializableTest;
 import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.BeanTesterException;
@@ -55,6 +56,7 @@ public class BeanTester {
         beanTestList.add(new ComparableTest());
         beanTestList.add(new ToStringTest());
         beanTestList.add(new HashcodeTest());
+        beanTestList.add(new SerializableTest(valueGeneratorFactory));
     }
     
     /**
