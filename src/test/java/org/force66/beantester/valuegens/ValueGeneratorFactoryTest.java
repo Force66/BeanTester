@@ -11,9 +11,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.valuegens;
 
 import org.force66.beantester.valuegens.PrimitiveValueGenerator;
+import org.force66.beantester.valuegens.ValueGeneratorFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

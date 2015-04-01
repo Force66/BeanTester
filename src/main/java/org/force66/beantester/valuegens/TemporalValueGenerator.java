@@ -16,7 +16,6 @@ package org.force66.beantester.valuegens;
 import java.lang.reflect.Constructor;
 
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.ValueGenerator;
 import org.force66.beantester.utils.BeanTesterException;
 
 public class TemporalValueGenerator implements ValueGenerator<Object> {

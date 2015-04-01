@@ -14,7 +14,6 @@
 package org.force66.beantester.valuegens;
 
 import org.apache.commons.lang3.ClassUtils;
-import org.force66.beantester.ValueGenerator;
 
 /**
  * Generic value generator for provided values.

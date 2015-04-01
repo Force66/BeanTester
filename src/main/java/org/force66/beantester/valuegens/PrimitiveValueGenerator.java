@@ -13,7 +13,6 @@
  */
 package org.force66.beantester.valuegens;
 
-import org.force66.beantester.ValueGenerator;
 
 public class PrimitiveValueGenerator implements ValueGenerator<Object> {
 	

@@ -31,6 +31,8 @@ import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
+import org.force66.beantester.valuegens.ValueGenerator;
+import org.force66.beantester.valuegens.ValueGeneratorFactory;
 
 /**
  * <p>Main user class for the BeanTester product.  BeanTester performs monotonous testing on normal

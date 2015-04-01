@@ -22,6 +22,7 @@ import org.force66.beantester.testbeans.DateBean;
 import org.force66.beantester.testbeans.OddTypesBean;
 import org.force66.beantester.testbeans.PrimitiveTypeBean;
 import org.force66.beantester.valuegens.GenericValueGenerator;
+import org.force66.beantester.valuegens.ValueGeneratorFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

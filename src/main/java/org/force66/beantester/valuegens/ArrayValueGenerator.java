@@ -16,7 +16,6 @@ package org.force66.beantester.valuegens;
 import java.lang.reflect.Array;
 
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.ValueGenerator;
 
 /**
  * Will generate values for arrays.

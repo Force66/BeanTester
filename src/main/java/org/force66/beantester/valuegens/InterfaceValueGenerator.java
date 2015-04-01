@@ -19,7 +19,6 @@ import java.lang.reflect.Proxy;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.ValueGenerator;
 
 /**
  * Will generate proxy values for interfaces used as properties

@@ -11,25 +11,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
+package org.force66.beantester.valuegens;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.utils.InstantiationUtils;
-import org.force66.beantester.valuegens.ArrayValueGenerator;
-import org.force66.beantester.valuegens.GenericValueGenerator;
-import org.force66.beantester.valuegens.InterfaceValueGenerator;
-import org.force66.beantester.valuegens.PrimitiveValueGenerator;
-import org.force66.beantester.valuegens.TemporalValueGenerator;
 
 /**
  * Will determine an appropriate ValueGenerator for a specific class.
  * @author D. Ashmore
  *
  */
-class ValueGeneratorFactory {
+public class ValueGeneratorFactory {
 	
 	private static final ValueGenerator<?>[] STOCK_GENERATORS = new ValueGenerator<?>[]{
 		new PrimitiveValueGenerator(Boolean.class, new Object[]{Boolean.TRUE, Boolean.FALSE})
