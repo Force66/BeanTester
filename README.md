@@ -12,6 +12,7 @@ Specifically, the following tests are performed:
 * clone() equals the instance from which it was produced  
 * compareTo() executes without exception  
 * An instance compareTo() is 0 when compared to itself  
+* An instance serializes and equals a reconstituted version of itself (if java.io.Serializable is implemented)
 
 Additional detail in the 'Usage Instrcutions and Examples' section.
 
@@ -27,7 +28,7 @@ Installation Instructions
 BeanTester is easy to install whether you use maven or not.
 
 ### Maven Users  
-(forthcoming) -- Maven users can find dependency information [here](http://search.maven.org/#search%7Cga%7C1%7Corg.force66).
+Maven users can find dependency information [here](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.force66%22%20AND%20a%3A%22BeanTester%22).
 
 ### Non-Maven Users  
 Include the following jars in your class path:  
