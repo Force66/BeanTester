@@ -18,7 +18,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.force66.beantester.utils.InstantiationUtils;
+import org.force66.beantester.valuegens.ArrayValueGenerator;
 import org.force66.beantester.valuegens.GenericValueGenerator;
+import org.force66.beantester.valuegens.InterfaceValueGenerator;
 import org.force66.beantester.valuegens.PrimitiveValueGenerator;
 import org.force66.beantester.valuegens.TemporalValueGenerator;
 
@@ -64,8 +66,36 @@ class ValueGeneratorFactory {
 				}
 			}
 		}
+		else {
+			return generator;
+		}
 		
-		return generator;
+		if (targetClass.isInterface()) {
+        	InterfaceValueGenerator gen = new InterfaceValueGenerator(targetClass);
+        	this.registerGenerator(targetClass, gen);
+        	return gen;
+        }
+        else if (targetClass.isEnum()) {
+        	return registerGenericGenerator(targetClass, targetClass.getEnumConstants());
+        }
+        else if (targetClass.isArray()) {
+        	ArrayValueGenerator gen = new ArrayValueGenerator(targetClass);
+        	this.registerGenerator(targetClass, gen);
+        	return gen;
+        }
+        else if (Class.class.equals(targetClass)) {
+        	return registerGenericGenerator(targetClass, new Object[]{Object.class});
+         }
+        else {
+        	return registerGenericGenerator(targetClass, new Object[]{InstantiationUtils.safeNewInstance(targetClass)});
+        }
+
+	}
+
+	protected ValueGenerator<?> registerGenericGenerator(Class<?> targetClass, Object[] objValues) {
+		GenericValueGenerator gen = new GenericValueGenerator(objValues);
+		this.registerGenerator(targetClass, gen);
+		return gen;
 	}
 	
 

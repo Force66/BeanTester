@@ -140,24 +140,6 @@ public class BeanTester {
     	if (generator != null) {
     		return generator.makeValues();
     	}
-    	
-        if (type.isInterface()) {
-        	InterfaceValueGenerator gen = new InterfaceValueGenerator(type);
-        	this.valueGeneratorFactory.registerGenerator(type, gen);
-        	return gen.makeValues();
-        }
-        else if (type.isEnum()) {
-            return type.getEnumConstants();
-        }
-        else if (type.isArray()) {
-            Array.newInstance(type.getComponentType(), 0);
-        }
-        else if (Class.class.equals(type)) {
-        	return new Object[]{Object.class};
-        }
-        else {
-        	return new Object[]{InstantiationUtils.safeNewInstance(type)};
-        }
         
         return new Object[0];
     }
