@@ -74,7 +74,7 @@ public class ValueGeneratorFactory {
         	return registerGenericGenerator(targetClass, targetClass.getEnumConstants());
         }
         else if (targetClass.isArray()) {
-        	ArrayValueGenerator gen = new ArrayValueGenerator(targetClass);
+        	ArrayValueGenerator gen = new ArrayValueGenerator(targetClass, this);
         	this.registerGenerator(targetClass, gen);
         	return gen;
         }

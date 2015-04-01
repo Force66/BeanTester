@@ -20,15 +20,17 @@ import org.junit.Test;
 public class ArrayValueGeneratorTest {
 	
 	ArrayValueGenerator generator;
+	ValueGeneratorFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
+		factory = new ValueGeneratorFactory();
 	}
 
 	@Test
 	public void testBasic() throws Exception {
 		try{
-			generator = new ArrayValueGenerator(null);
+			generator = new ArrayValueGenerator(null, factory);
 			Assert.fail();
 		}
 		catch (Exception e) {
@@ -37,7 +39,7 @@ public class ArrayValueGeneratorTest {
 		}
 		
 		try{
-			generator = new ArrayValueGenerator(String.class);
+			generator = new ArrayValueGenerator(String.class, factory);
 			Assert.fail();
 		}
 		catch (Exception e) {
@@ -45,8 +47,17 @@ public class ArrayValueGeneratorTest {
 			Assert.assertTrue(e.getMessage().contains("java.lang.String"));
 		}
 		
+		try{
+			generator = new ArrayValueGenerator(String.class, null);
+			Assert.fail();
+		}
+		catch (Exception e) {
+			Assert.assertTrue(e.getMessage() != null);
+			Assert.assertTrue(e.getMessage().contains("Null valueGeneratorFactory not allowed"));
+		}
+		
 		String[] strArray = new String[0];
-		generator = new ArrayValueGenerator(strArray.getClass());
+		generator = new ArrayValueGenerator(strArray.getClass(), factory);
 		Object[] objArray = generator.makeValues();
 		Assert.assertTrue(objArray.length >= 1);
 		Assert.assertTrue(objArray[0] instanceof String[]);
@@ -55,7 +66,7 @@ public class ArrayValueGeneratorTest {
 	@Test
 	public void testCanGenerate() throws Exception {
 		String[] strArray = new String[0];
-		generator = new ArrayValueGenerator(strArray.getClass());
+		generator = new ArrayValueGenerator(strArray.getClass(), factory);
 		
 		Assert.assertTrue(generator.canGenerate(strArray.getClass()));
 		Assert.assertTrue( !generator.canGenerate(String.class));

@@ -25,16 +25,22 @@ import org.apache.commons.lang3.Validate;
 public class ArrayValueGenerator implements ValueGenerator<Object> {
 	
 	private Class<?> arrayType;
+	private ValueGeneratorFactory valueGeneratorFactory;
 	
-	public ArrayValueGenerator(Class<?> type) {
+	public ArrayValueGenerator(Class<?> type, ValueGeneratorFactory valueGeneratorFactory) {
 		Validate.notNull(type, "Null array type not allowed");
+		Validate.notNull(valueGeneratorFactory, "Null valueGeneratorFactory not allowed");
 		Validate.isTrue(type.isArray(), "Provided class must be an array.  class=%s", type.getName());
 		arrayType=type;
+		this.valueGeneratorFactory = valueGeneratorFactory;
 	}
 
 	@Override
 	public Object[] makeValues() {
-		return  new Object[]{Array.newInstance(arrayType.getComponentType(), 0)};
+		Object[] objArray =  new Object[]{Array.newInstance(arrayType.getComponentType(), 1)};
+		ValueGenerator<?> gen = valueGeneratorFactory.forClass(arrayType.getComponentType());
+		Array.set(objArray[0], 0, gen.makeValues()[0]);
+		return objArray;
 	}
 
 	@Override
