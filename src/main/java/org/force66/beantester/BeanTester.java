@@ -14,7 +14,6 @@
 package org.force66.beantester;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +31,6 @@ import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
-import org.force66.beantester.valuegens.InterfaceValueGenerator;
 
 /**
  * <p>Main user class for the BeanTester product.  BeanTester performs monotonous testing on normal
