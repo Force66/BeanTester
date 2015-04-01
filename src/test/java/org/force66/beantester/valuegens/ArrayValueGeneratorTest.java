@@ -13,58 +13,52 @@
  */
 package org.force66.beantester.valuegens;
 
-import java.sql.Statement;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InterfaceValueGeneratorTest {
+public class ArrayValueGeneratorTest {
 	
-	InterfaceValueGenerator generator;
+	ArrayValueGenerator generator;
 
 	@Before
 	public void setUp() throws Exception {
-		
 	}
 
 	@Test
 	public void testBasic() throws Exception {
 		try{
-			generator = new InterfaceValueGenerator(null);
+			generator = new ArrayValueGenerator(null);
 			Assert.fail();
 		}
 		catch (Exception e) {
 			Assert.assertTrue(e.getMessage() != null);
-			Assert.assertTrue(e.getMessage().contains("Null interface type not allowed"));
+			Assert.assertTrue(e.getMessage().contains("Null array type not allowed"));
 		}
 		
 		try{
-			generator = new InterfaceValueGenerator(String.class);
+			generator = new ArrayValueGenerator(String.class);
 			Assert.fail();
 		}
 		catch (Exception e) {
 			Assert.assertTrue(e.getMessage() != null);
-			Assert.assertTrue(e.getMessage().contains("class=java.lang.String"));
+			Assert.assertTrue(e.getMessage().contains("java.lang.String"));
 		}
 		
-		generator = new InterfaceValueGenerator(Statement.class);
-		Assert.assertTrue(Statement.class.equals(FieldUtils.readField(generator, "interfaceType", true)));
-		
-		Object[] values = generator.makeValues();
-		Assert.assertTrue(values != null);
-		Assert.assertTrue(values.length == 1);
-		Assert.assertTrue(values[0] instanceof Statement);
+		String[] strArray = new String[0];
+		generator = new ArrayValueGenerator(strArray.getClass());
+		Object[] objArray = generator.makeValues();
+		Assert.assertTrue(objArray.length >= 1);
+		Assert.assertTrue(objArray[0] instanceof String[]);
 	}
 	
 	@Test
 	public void testCanGenerate() throws Exception {
-		generator = new InterfaceValueGenerator(Statement.class);
-		Assert.assertTrue(!generator.canGenerate(String.class));
-		Assert.assertTrue(!generator.canGenerate(null));
-		Assert.assertTrue(generator.canGenerate(Statement.class));
+		String[] strArray = new String[0];
+		generator = new ArrayValueGenerator(strArray.getClass());
 		
+		Assert.assertTrue(generator.canGenerate(strArray.getClass()));
+		Assert.assertTrue( !generator.canGenerate(String.class));
 	}
 
 }

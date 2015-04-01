@@ -43,5 +43,11 @@ public class InstantiationUtilsTest {
 		Assert.assertTrue(obj != null);
 		Assert.assertTrue(obj.toString().equals("0"));
 	}
+	
+	@Test
+	public void testXewXMLGregorianCalendar() {
+		XMLGregorianCalendar xc = InstantiationUtils.newXMLGregorianCalendar();
+		Assert.assertTrue(xc != null);
+	}
 
 }

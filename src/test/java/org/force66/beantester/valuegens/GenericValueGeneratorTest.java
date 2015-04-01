@@ -13,34 +13,21 @@
  */
 package org.force66.beantester.valuegens;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.force66.beantester.ValueGenerator;
+import org.junit.Assert;
+import org.junit.Test;
 
-/**
- * Generic value generator for provided values.
- * @author D. Ashmore
- *
- */
-public class GenericValueGenerator implements ValueGenerator<Object> {
+public class GenericValueGeneratorTest {
 	
-	private Object[] values;
-	
-	public GenericValueGenerator(Object[] values) {
-		this.values = values;
-	}
+	GenericValueGenerator generator;
 
-	@Override
-	public Object[] makeValues() {
-		return values;
-	}
-
-	@Override
-	public boolean canGenerate(Class<?> targetClass) {
-		if (targetClass == null) return false;
-		if (values.length > 0) {
-			return ClassUtils.isAssignable(values[0].getClass(), targetClass);
-		}
-		return false;
+	@Test
+	public void testBasic() throws Exception {
+		generator = new GenericValueGenerator(new String[]{"one", "two"});
+		Assert.assertTrue(generator.makeValues() != null);
+		Assert.assertTrue(generator.makeValues().length == 2);
+		Assert.assertTrue(generator.canGenerate(String.class));
+		Assert.assertTrue(!generator.canGenerate(Long.class));
+		Assert.assertTrue(!generator.canGenerate(null));
 	}
 
 }

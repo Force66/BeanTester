@@ -25,6 +25,16 @@ public class PrimitiveTypeBean extends BaseBean {
 	private byte    byteValue;
 	private boolean booleanValue;
 	private char    charValue;
+	
+	private short[]   shortArrayValue;
+	private int[]     intArrayValue;
+	private long[]    longArrayValue;
+	private float[]   floatArrayValue;
+	private double[]  doubleArrayValue;
+	private byte[]    byteArrayValue;
+	private boolean[] booleanArrayValue;
+	private char[]    charArrayValue;
+	
 	public short getShortValue() {
 		CallingRegistry.addCall("getShortValue");
 		return shortValue;
@@ -88,6 +98,54 @@ public class PrimitiveTypeBean extends BaseBean {
 	public void setCharValue(char charValue) {
 		CallingRegistry.addCall("setCharValue");
 		this.charValue = charValue;
+	}
+	public short[] getShortArrayValue() {
+		return shortArrayValue;
+	}
+	public void setShortArrayValue(short[] shortArrayValue) {
+		this.shortArrayValue = shortArrayValue;
+	}
+	public int[] getIntArrayValue() {
+		return intArrayValue;
+	}
+	public void setIntArrayValue(int[] intArrayValue) {
+		this.intArrayValue = intArrayValue;
+	}
+	public long[] getLongArrayValue() {
+		return longArrayValue;
+	}
+	public void setLongArrayValue(long[] longArrayValue) {
+		this.longArrayValue = longArrayValue;
+	}
+	public float[] getFloatArrayValue() {
+		return floatArrayValue;
+	}
+	public void setFloatArrayValue(float[] floatArrayValue) {
+		this.floatArrayValue = floatArrayValue;
+	}
+	public double[] getDoubleArrayValue() {
+		return doubleArrayValue;
+	}
+	public void setDoubleArrayValue(double[] doubleArrayValue) {
+		this.doubleArrayValue = doubleArrayValue;
+	}
+	public byte[] getByteArrayValue() {
+		return byteArrayValue;
+	}
+	public void setByteArrayValue(byte[] byteArrayValue) {
+		this.byteArrayValue = byteArrayValue;
+	}
+	public boolean[] getBooleanArrayValue() {
+		return booleanArrayValue;
+	}
+	public void setBooleanArrayValue(boolean[] booleanArrayValue) {
+		this.booleanArrayValue = booleanArrayValue;
+	}
+	public char[] getCharArrayValue() {
+		return charArrayValue;
+	}
+	public void setCharArrayValue(char[] charArrayValue) {
+		this.charArrayValue = charArrayValue;
 	}
 
 }
