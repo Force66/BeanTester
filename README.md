@@ -7,7 +7,7 @@ Specifically, the following tests are performed:
 * accessors return the value assigned to them via their corresponding mutator (e.g. getXXX() returns the same value submitted with setXXX())  
 * An instance equals() itself  
 * hashcode() runs without exception    
-* hashcode() is constant over time if no changes are made to it  
+* hashcode() for an instance is constant over time if no changes are made to it  
 * clone() executes without exception  
 * clone() equals the instance from which it was produced  
 * compareTo() executes without exception  
