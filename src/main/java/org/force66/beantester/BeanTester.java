@@ -77,10 +77,23 @@ public class BeanTester {
     	valueGeneratorFactory.registerGenerator(fieldClass, new GenericValueGenerator(values));
     }
     
+    /**
+     * Will perform all bean tests against the class provided.  See product 
+     * <a href="https://github.com/Force66/BeanTester">documentation</a> for details on the
+     * tests performed.
+     * @param beanClass
+     */
     public void testBean(Class<?> beanClass)  {
     	this.testBean(beanClass, null);
     }
     
+    /**
+     * Will perform all bean tests against the class provided using the constructor arguments provided.  
+     * See product <a href="https://github.com/Force66/BeanTester">documentation</a> for details on the
+     * tests performed.
+     * @param beanClass
+     * @param constructorArgs
+     */
     public void testBean(Class<?> beanClass, Object[] constructorArgs)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
         testBean(InstantiationUtils.safeNewInstance(beanClass, constructorArgs), constructorArgs);
