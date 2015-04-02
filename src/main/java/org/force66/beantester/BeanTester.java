@@ -13,15 +13,14 @@
  */
 package org.force66.beantester;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.Validate;
+import org.force66.beantester.tests.AccessorMutatorTest;
 import org.force66.beantester.tests.BeanTest;
 import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
@@ -29,11 +28,9 @@ import org.force66.beantester.tests.HashcodeTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.SerializableTest;
 import org.force66.beantester.tests.ToStringTest;
-import org.force66.beantester.tests.ValuePropertyTest;
 import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
-import org.force66.beantester.valuegens.ValueGenerator;
 import org.force66.beantester.valuegens.ValueGeneratorFactory;
 
 /**
@@ -58,6 +55,7 @@ public class BeanTester {
         beanTestList.add(new ToStringTest());
         beanTestList.add(new HashcodeTest());
         beanTestList.add(new SerializableTest(valueGeneratorFactory));
+        beanTestList.add(new AccessorMutatorTest(valueGeneratorFactory, fieldExclusionSet));
     }
     
     /**
@@ -111,40 +109,6 @@ public class BeanTester {
             .addContextValue("bean type", bean.getClass().getName());
         }
         
-        for (PropertyDescriptor descriptor: PropertyUtils.getPropertyDescriptors(bean)) {
-            if ( !fieldExclusionSet.contains(descriptor.getName())) {
-                testProperty(bean, descriptor);
-            }
-        }
-    }
-    
-    protected void testProperty(Object bean, PropertyDescriptor descriptor)  {
-        
-        try {
-            performNullTest(bean, descriptor);
-            for (Object value: generateValues(descriptor.getPropertyType())) {
-                performValueTest(bean, descriptor, value);
-            }
-        }
-        catch (BeanTesterException are) {
-            throw are.addContextValue("bean type", bean.getClass().getName())
-                .addContextValue("field", descriptor.getName());
-        }
-        catch (Exception e) {
-            throw new BeanTesterException(e)
-            .addContextValue("bean type", bean.getClass().getName())
-            .addContextValue("field", descriptor.getName());
-        }
-    }
-    
-    protected Object[] generateValues(Class<?> type) {
-
-    	ValueGenerator<?> generator = valueGeneratorFactory.forClass(type);
-    	if (generator != null) {
-    		return generator.makeValues();
-    	}
-        
-        return new Object[0];
     }
     
     protected void performBeanTests(Object bean, Object[] constructorArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -156,31 +120,6 @@ public class BeanTester {
     		}
     	}
        
-    }
-    
-    protected void performValueTest(Object bean,
-            PropertyDescriptor descriptor, Object value) throws IllegalAccessException,
-            InvocationTargetException {
-    	
-    	if (!new ValuePropertyTest().testProperty(bean, descriptor, value)) {
-    		throw new BeanTesterException("Property test failed")
-    			.addContextValue("fieldName", descriptor.getName())
-    			.addContextValue("class", bean.getClass().getName())
-    			.addContextValue("test value", value);
-    	}
-
-    }
-
-    protected void performNullTest(Object bean,
-            PropertyDescriptor descriptor) throws IllegalAccessException,
-            InvocationTargetException {
-    	if (!new ValuePropertyTest().testProperty(bean, descriptor, null)) {
-    		throw new BeanTesterException("Property test failed")
-    			.addContextValue("fieldName", descriptor.getName())
-    			.addContextValue("class", bean.getClass().getName())
-    			.addContextValue("test value", null);
-    	}
-         
     }
 
 }
