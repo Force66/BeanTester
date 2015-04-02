@@ -13,7 +13,6 @@
  */
 package org.force66.beantester;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +28,6 @@ import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.SerializableTest;
 import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.utils.BeanTesterException;
-import org.force66.beantester.utils.InstantiationUtils;
 import org.force66.beantester.valuegens.GenericValueGenerator;
 import org.force66.beantester.valuegens.ValueGeneratorFactory;
 
@@ -97,29 +95,13 @@ public class BeanTester {
      */
     public void testBean(Class<?> beanClass, Object[] constructorArgs)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
-        testBean(InstantiationUtils.safeNewInstance(beanClass, constructorArgs), constructorArgs);
-    }
-    
-    protected void testBean(Object bean, Object[] constructorArgs) {
-        Validate.notNull(bean, "Null bean not allowed.");
-        
-        try {performBeanTests(bean, constructorArgs);}
-        catch (Exception e) {
-            throw new BeanTesterException(e)
-            .addContextValue("bean type", bean.getClass().getName());
-        }
-        
-    }
-    
-    protected void performBeanTests(Object bean, Object[] constructorArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-    	for (BeanTest test: beanTestList) {
-    		if (!test.testBeanClass(bean.getClass(), constructorArgs)) {
+        for (BeanTest test: beanTestList) {
+    		if (!test.testBeanClass(beanClass, constructorArgs)) {
     			throw new BeanTesterException("FailedTest")
     			.addContextValue("test", test.getClass().getName())
     			.addContextValue("failure reason", test.getFailureReason());
     		}
     	}
-       
     }
 
 }
