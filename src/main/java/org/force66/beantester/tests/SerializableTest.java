@@ -40,6 +40,7 @@ public class SerializableTest extends BaseBeanTest {
 
 	@Override
 	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
+		this.setFailureReason(null);
 		Object bean = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		if (bean instanceof Serializable) {
 			InjectionUtils.injectValues(bean, valueGeneratorFactory, false);
@@ -51,6 +52,7 @@ public class SerializableTest extends BaseBeanTest {
 				serializedObj = SerializationUtils.serialize(sBean);			
 				sBeanReconstituted = SerializationUtils.deserialize(serializedObj);
 			} catch (Exception e) {
+				this.setFailureReason("Error serializing bean that implements serializable");
 				throw new BeanTesterException("Error serializing bean that implements serializable", e)
 					.addContextValue("class", klass.getName());
 			}
@@ -60,6 +62,7 @@ public class SerializableTest extends BaseBeanTest {
 			 */
 			Method equalsMethod = MethodUtils.getAccessibleMethod(klass, "equals", Object.class);
 			if ( !equalsMethod.getDeclaringClass().equals(Object.class) && !sBean.equals(sBeanReconstituted)) {
+				this.setFailureReason("Bean implements serializable, but the reconstituted bean doesn't equal it's original");
 				throw new BeanTesterException("Bean implements serializable, but the reconstituted bean doesn't equal it's original")
 				.addContextValue("class", klass.getName());
 			}
