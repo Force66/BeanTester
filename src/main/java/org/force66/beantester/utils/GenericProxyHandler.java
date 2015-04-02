@@ -58,6 +58,15 @@ public class GenericProxyHandler implements InvocationHandler, Serializable {
 		out.writeObject(interfaceType);
 		out.close();
 	}
+	
+	/*
+	 * Note:  the three methods below are required for custom Serialization.  This proxy has
+	 * custom serialization to emulate serialization properties of the interface it 
+	 * represents.  The intent is that interfaces that are not Serializable except during the
+	 * serialization test.
+	 * 
+	 * D. Ashmore  April 2, 2015
+	 */
 
 	private void checkSerializable() throws IOException {
 		if ( !ClassUtils.isAssignable(interfaceType, Serializable.class)) {
