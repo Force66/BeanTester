@@ -13,12 +13,10 @@
  */
 package org.force66.beantester.valuegens;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
+import org.force66.beantester.utils.GenericProxyHandler;
 
 /**
  * Will generate proxy values for interfaces used as properties
@@ -47,25 +45,6 @@ public class InterfaceValueGenerator implements ValueGenerator<Object> {
 	public boolean canGenerate(Class<?> targetClass) {
 		if (targetClass == null) return false;
 		return targetClass.isInterface();
-	}
-	
-	static class GenericProxyHandler implements InvocationHandler {
-		
-		private Class<?> interfaceType;
-		
-		public GenericProxyHandler(Class<?> interfaceType)  {
-			this.interfaceType = interfaceType;
-		}
-
-		@Override
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
-			if ("equals".equals(method.getName())) {
-				return proxy == args[0];
-			}
-			throw new UnsupportedOperationException("this is a generic proxy with no functionality");
-		}
-		
 	}
 
 }
