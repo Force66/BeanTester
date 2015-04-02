@@ -13,7 +13,6 @@
  */
 package org.force66.beantester.tests;
 
-import org.force66.beantester.BeanTest;
 
 /**
  * Base implmenetation of BeanTest

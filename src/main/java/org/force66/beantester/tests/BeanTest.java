@@ -11,19 +11,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.force66.beantester;
-
-import java.beans.PropertyDescriptor;
+package org.force66.beantester.tests;
 
 /**
- * Will perform a test on a specific bean property.
+ * Interface for performing a bean-level test
  * @author D. Ashmore
  *
  */
-public interface BeanPropertyTest {
+public interface BeanTest {
 	
-	public boolean testProperty(Object bean,
-            PropertyDescriptor descriptor,
-            Object value);
+	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs);
+	
+	public String getFailureReason();
 
 }

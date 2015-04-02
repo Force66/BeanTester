@@ -16,7 +16,6 @@ package org.force66.beantester.tests;
 import java.beans.PropertyDescriptor;
 
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.BeanPropertyTest;
 import org.force66.beantester.utils.BeanTesterException;
 
 public class ValuePropertyTest implements BeanPropertyTest {

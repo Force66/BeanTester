@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.Validate;
+import org.force66.beantester.tests.BeanTest;
 import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
 import org.force66.beantester.tests.HashcodeTest;
