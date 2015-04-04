@@ -41,11 +41,17 @@ public class ToStringTestTest {
 		catch (Exception e) {
 			Assert.assertTrue(e.getMessage().contains("toString() failed execution"));
 		}
+		
+		TestBean.exceptionToThrow = null;
+		TestBean.fieldExceptionToThrow = new RuntimeException("splat");
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
 	}
 	
 	public static class TestBean {
 		
 		private static RuntimeException exceptionToThrow=null;
+		private static RuntimeException fieldExceptionToThrow=null;
+		private String bogusField;
 
 		@Override
 		public String toString() {
@@ -53,6 +59,17 @@ public class ToStringTestTest {
 				throw exceptionToThrow;
 			}
 			return super.toString();
+		}
+
+		public String getBogusField() {
+			return bogusField;
+		}
+
+		public void setBogusField(String bogusField) {
+			if (fieldExceptionToThrow != null) {
+				throw fieldExceptionToThrow;
+			}
+			this.bogusField = bogusField;
 		}
 		
 	}
