@@ -40,7 +40,7 @@ public class ToStringTest extends BaseBeanTest {
 			instance1.toString();
 			
 			//  Testing if toString() excepts if fields have values....
-			InjectionUtils.injectValues(instance1, valueGeneratorFactory, true);
+			InjectionUtils.injectValues(instance1, valueGeneratorFactory, false);
 			instance1.toString();
 			return true;
 		}
