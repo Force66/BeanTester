@@ -14,8 +14,7 @@ Specifically, the following tests are performed:
 * An instance compareTo() is 0 when compared to itself  
 * An instance serializes and equals a reconstituted version of itself (if java.io.Serializable is implemented)
 
-Additional detail in the 'Usage Instrcutions and Examples' section.
-
+Additional detail in the 'Usage Instructions and Examples' section.
 
 System Requirements
 ==================
@@ -66,3 +65,14 @@ Add custom values for proerty-level testing:
 BeanTester beanTester = new BeanTester();
 beanTester.addTestValues(PerformanceSummaryVO.class, new Object[]{custom1, custom2});  
 ```  
+
+BeanTester comes with support for the following data types out of the box:   
+* Primitives (both singleton and arrays)  
+* Primitive Object Wrappers (both singleton and arrays)  
+* Any class type with a public null constructor  
+* Enums  
+* Temporal types, such as java.util.Date, java.sql.Date, java.sql.Time, java.sql.Timestamp, GregorianCalendar, XmlGregorianCalandar  
+
+Remember that you can register test values for any custom class.  this means that any data type is supported.
+
+BeanTester does *not* perform nested testing.  That is, it doesn't automatically test classes it encounters used as fields.  Tests for those classes should be separate executions of BeanTester.
