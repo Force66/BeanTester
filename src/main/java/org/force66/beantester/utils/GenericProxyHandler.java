@@ -54,30 +54,14 @@ public class GenericProxyHandler implements InvocationHandler, Serializable {
 	
 	private void writeObject(java.io.ObjectOutputStream out)
 		     throws IOException {
-		checkSerializable();
 		out.writeObject(interfaceType);
 		out.close();
 	}
 	
-	/*
-	 * Note:  the three methods below are required for custom Serialization.  This proxy has
-	 * custom serialization to emulate serialization properties of the interface it 
-	 * represents.  The intent is that interfaces that are not Serializable except during the
-	 * serialization test.
-	 * 
-	 * D. Ashmore  April 2, 2015
-	 */
-
-	private void checkSerializable() throws IOException {
-		if ( !ClassUtils.isAssignable(interfaceType, Serializable.class)) {
-			throw new IOException("Interface not serializable.  class="+interfaceType.getName());
-		}
-	}
 	 private void readObject(java.io.ObjectInputStream in)
 	     throws IOException, ClassNotFoundException {		 
 		 interfaceType = (Class<?>)in.readObject();
 		 in.close();
-		 checkSerializable();
 	 }
 	 private void readObjectNoData()
 	     throws ObjectStreamException {

@@ -67,6 +67,9 @@ public class AccessorMutatorTest extends BaseBeanTest {
                 performValueTest(bean, descriptor, value);
             }
         }
+        catch (TestFailureException are) {
+            throw are;
+        }
         catch (BeanTesterException are) {
             throw are.addContextValue("bean type", bean.getClass().getName())
                 .addContextValue("field", descriptor.getName());

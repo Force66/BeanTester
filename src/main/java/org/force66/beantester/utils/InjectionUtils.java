@@ -28,22 +28,24 @@ public class InjectionUtils {
 	public static void injectValues(Object bean, ValueGeneratorFactory valueGeneratorFactory, boolean reportExceptions) {
 		
 		ValueGenerator<?> generator;
-		Object[] generatedValues;
+		Object[] generatedValues = null;
 		for (PropertyDescriptor descriptor: PropertyUtils.getPropertyDescriptors(bean)) {
-			generator = valueGeneratorFactory.forClass(descriptor.getPropertyType());
-			if (generator != null && descriptor.getWriteMethod() != null) {
-				generatedValues = generator.makeValues();
-				try {
-					descriptor.getWriteMethod().invoke(bean, generatedValues[0]);
-				} catch (Exception e) {
-					if (reportExceptions) {
-						throw new BeanTesterException("Error setting property value", e)
-							.addContextValue("class", bean.getClass().getName())
-							.addContextValue("field", descriptor.getName())
-							.addContextValue("value", generatedValues[0]);
-					}
-				} 
-			}
+			try {
+				generator = valueGeneratorFactory.forClass(descriptor.getPropertyType());
+				if (generator != null && descriptor.getWriteMethod() != null) {
+					generatedValues = generator.makeValues();
+					
+						descriptor.getWriteMethod().invoke(bean, generatedValues[0]);
+					
+				}
+			} catch (Exception e) {
+				if (reportExceptions) {
+					throw new BeanTesterException("Error setting property value", e)
+						.addContextValue("class", bean.getClass().getName())
+						.addContextValue("field", descriptor.getName())
+						.addContextValue("value", generatedValues != null && generatedValues.length > 0 ? generatedValues[0] : null);
+				}
+			} 
 		}
 	}
 	

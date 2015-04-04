@@ -51,7 +51,7 @@ public class SerializableTest extends BaseBeanTest {
 			try {
 				serializedObj = SerializationUtils.serialize(sBean);			
 				sBeanReconstituted = SerializationUtils.deserialize(serializedObj);
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				this.setFailureReason("Error serializing bean that implements serializable");
 				throw new BeanTesterException("Error serializing bean that implements serializable", e)
 					.addContextValue("class", klass.getName());

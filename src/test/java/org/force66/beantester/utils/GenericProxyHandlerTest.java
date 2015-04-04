@@ -15,7 +15,6 @@ package org.force66.beantester.utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Proxy;
-import java.sql.Statement;
 
 import javax.naming.Name;
 
@@ -32,14 +31,6 @@ public class GenericProxyHandlerTest {
 	@Test
 	public void testBasic() throws Exception {
 
-		try {
-			performRoundTrip(this.makeProxy(Statement.class));
-			Assert.fail();
-		}
-		catch (Exception e) {
-			Assert.assertTrue(e.getMessage().contains("Interface not serializable"));
-			Assert.assertTrue(e.getMessage().contains("java.sql.Statement"));
-		}
 		performRoundTrip(this.makeProxy(Name.class));
 
 	}

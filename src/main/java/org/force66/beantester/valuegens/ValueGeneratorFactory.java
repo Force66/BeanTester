@@ -13,6 +13,7 @@
  */
 package org.force66.beantester.valuegens;
 
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,11 +66,15 @@ public class ValueGeneratorFactory {
 			return generator;
 		}
 		
+		
 		if (targetClass.isInterface()) {
         	InterfaceValueGenerator gen = new InterfaceValueGenerator(targetClass);
         	this.registerGenerator(targetClass, gen);
         	return gen;
         }
+		else if (Modifier.isAbstract(targetClass.getModifiers())) {
+			return null;  // generator not possible on abstract classes
+		}
         else if (targetClass.isEnum()) {
         	return registerGenericGenerator(targetClass, targetClass.getEnumConstants());
         }
@@ -82,7 +87,7 @@ public class ValueGeneratorFactory {
         	return registerGenericGenerator(targetClass, new Object[]{Object.class});
          }
         else {
-        	return registerGenericGenerator(targetClass, new Object[]{InstantiationUtils.safeNewInstance(targetClass)});
+        	return registerGenericGenerator(targetClass, new Object[]{InstantiationUtils.safeNewInstance(this, targetClass)});
         }
 
 	}

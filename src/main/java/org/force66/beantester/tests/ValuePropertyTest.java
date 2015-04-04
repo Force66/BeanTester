@@ -50,6 +50,7 @@ public class ValuePropertyTest implements BeanPropertyTest {
 		} catch (Exception e) {
 			throw new BeanTesterException("Failed executing assignment test for accessor/mutator", e)
 			 .addContextValue("property", descriptor)
+			 .addContextValue("value class", value == null ? null : value.getClass().getName())
 			 .addContextValue("value", value);
 		} 
 		return answer;
