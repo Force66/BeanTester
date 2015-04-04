@@ -48,6 +48,9 @@ public class GenericProxyHandler implements InvocationHandler, Serializable {
 			}
 			return false;
 		}
+		else if (method.getDeclaringClass().equals(Object.class)) {
+			return method.invoke(this, args);
+		}
 		throw new BeanTesterException("This is a generic interface proxy with no functionality")
 			.addContextValue("method", method.getName());
 	}

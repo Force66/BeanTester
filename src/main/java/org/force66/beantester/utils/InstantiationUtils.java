@@ -16,6 +16,7 @@ package org.force66.beantester.utils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -99,7 +100,7 @@ public class InstantiationUtils {
 	
 	public static XMLGregorianCalendar newXMLGregorianCalendar() {
 		try {
-			return DatatypeFactory.newInstance().newXMLGregorianCalendar();
+			return DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
 		} catch (DatatypeConfigurationException e) {
 			throw new BeanTesterException("This shouldn't happen", e);
 		}

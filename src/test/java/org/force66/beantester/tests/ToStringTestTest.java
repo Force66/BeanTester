@@ -13,6 +13,7 @@
  */
 package org.force66.beantester.tests;
 
+import org.force66.beantester.valuegens.ValueGeneratorFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +21,12 @@ import org.junit.Test;
 public class ToStringTestTest {
 	
 	ToStringTest test;
+	ValueGeneratorFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
-		test = new ToStringTest();
+		factory = new ValueGeneratorFactory();
+		test = new ToStringTest(factory);
 	}
 
 	@Test

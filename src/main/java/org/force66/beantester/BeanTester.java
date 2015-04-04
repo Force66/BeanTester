@@ -50,7 +50,7 @@ public class BeanTester {
         beanTestList.add(new IdentityEqualsTest());
         beanTestList.add(new ClonableTest());
         beanTestList.add(new ComparableTest());
-        beanTestList.add(new ToStringTest());
+        beanTestList.add(new ToStringTest(valueGeneratorFactory));
         beanTestList.add(new HashcodeTest());
         beanTestList.add(new SerializableTest(valueGeneratorFactory));
         beanTestList.add(new AccessorMutatorTest(valueGeneratorFactory, fieldExclusionSet));

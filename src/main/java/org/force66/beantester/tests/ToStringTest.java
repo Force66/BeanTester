@@ -13,8 +13,11 @@
  */
 package org.force66.beantester.tests;
 
+import org.apache.commons.lang3.Validate;
 import org.force66.beantester.utils.BeanTesterException;
+import org.force66.beantester.utils.InjectionUtils;
 import org.force66.beantester.utils.InstantiationUtils;
+import org.force66.beantester.valuegens.ValueGeneratorFactory;
 
 /**
  * Performs a toString test
@@ -22,11 +25,20 @@ import org.force66.beantester.utils.InstantiationUtils;
  *
  */
 public class ToStringTest extends BaseBeanTest {
+	
+	private ValueGeneratorFactory valueGeneratorFactory;
+	
+	public ToStringTest(ValueGeneratorFactory factory) {
+		Validate.notNull(factory, "Null ValueGeneratorFactory not allowed.");
+		valueGeneratorFactory=factory;
+	}
 
 	@Override
 	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
 		Object instance1 = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		try {
+			instance1.toString();
+			InjectionUtils.injectValues(instance1, valueGeneratorFactory, true);
 			instance1.toString();
 			return true;
 		}
