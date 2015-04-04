@@ -32,6 +32,19 @@ public class GenericProxyHandlerTest {
 	public void testBasic() throws Exception {
 
 		performRoundTrip(this.makeProxy(Name.class));
+		
+		Name nameProxy = (Name)this.makeProxy(Name.class);
+		Assert.assertTrue( !nameProxy.equals(null));
+		Assert.assertTrue( !nameProxy.equals("foo"));
+		Assert.assertTrue( new GenericProxyHandler () != null);
+		
+		try {
+			nameProxy.getAll();
+			Assert.fail();
+		}
+		catch (Exception e) {
+			Assert.assertTrue(e.getMessage().contains("This is a generic interface proxy with no functionality"));
+		}
 
 	}
 
