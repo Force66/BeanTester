@@ -38,6 +38,8 @@ public class ToStringTest extends BaseBeanTest {
 		Object instance1 = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		try {
 			instance1.toString();
+			
+			//  Testing if toString() excepts if fields have values....
 			InjectionUtils.injectValues(instance1, valueGeneratorFactory, true);
 			instance1.toString();
 			return true;
