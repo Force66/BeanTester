@@ -23,6 +23,7 @@ import org.force66.beantester.tests.AccessorMutatorTest;
 import org.force66.beantester.tests.BeanTest;
 import org.force66.beantester.tests.ClonableTest;
 import org.force66.beantester.tests.ComparableTest;
+import org.force66.beantester.tests.HashcodeEqualsTest;
 import org.force66.beantester.tests.HashcodeTest;
 import org.force66.beantester.tests.IdentityEqualsTest;
 import org.force66.beantester.tests.SerializableTest;
@@ -52,6 +53,7 @@ public class BeanTester {
         beanTestList.add(new ComparableTest());
         beanTestList.add(new ToStringTest());
         beanTestList.add(new HashcodeTest());
+        beanTestList.add(new HashcodeEqualsTest());
         beanTestList.add(new SerializableTest(valueGeneratorFactory));
         beanTestList.add(new AccessorMutatorTest(valueGeneratorFactory, fieldExclusionSet));
     }
