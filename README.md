@@ -60,7 +60,7 @@ beanTester.addExcludedField("totalNbrExceptions");
 beanTester.testBean(PerformanceSummaryVO.class);  
 ```  
 
-Add custom values for proerty-level testing:  
+Add custom values for property-level testing:  
 ```  
 BeanTester beanTester = new BeanTester();
 beanTester.addTestValues(PerformanceSummaryVO.class, new Object[]{custom1, custom2});  
