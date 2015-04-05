@@ -35,9 +35,13 @@ public class ToStringTest extends BaseBeanTest {
 
 	@Override
 	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
+		this.setFailureReason(null);
 		Object instance1 = InstantiationUtils.safeNewInstance(klass, constructorArgs);
 		try {
-			instance1.toString();
+			if (instance1.toString() == null) {
+				this.setFailureReason("toString() equals null; a favorite pit test plug to see if toString() is being tested properly");
+				return false;
+			}
 			
 			//  Testing if toString() excepts if fields have values....
 			InjectionUtils.injectValues(instance1, valueGeneratorFactory, false);

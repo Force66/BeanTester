@@ -8,10 +8,12 @@ Specifically, the following tests are performed:
 * An instance equals() itself  
 * hashcode() runs without exception    
 * hashcode() for an instance is constant over time if no changes are made to it  
-* hashcode() equals 0 or 1.  The pit test product plugs these hardcoded values in to determine if you're properly testing hashcode()  
+* hashcode() equals 0.  The pit test product plugs 0 in to determine if you're properly testing hashcode()  
 * clone() executes without exception  
 * clone() equals the instance from which it was produced  
 * compareTo() executes without exception  
+* toString() executes without exception  
+* toString() is not null.  The pit test product plugs null in to determine if you're properly testing  
 * An instance compareTo() is 0 when compared to itself  
 * An instance serializes and equals a reconstituted version of itself (if java.io.Serializable is implemented)
 
