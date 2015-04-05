@@ -8,6 +8,7 @@ Specifically, the following tests are performed:
 * An instance equals() itself  
 * hashcode() runs without exception    
 * hashcode() for an instance is constant over time if no changes are made to it  
+* hashcode() equals 0 or 1.  The pit test product plugs these hardcoded values in to determine if you're properly testing hashcode()  
 * clone() executes without exception  
 * clone() equals the instance from which it was produced  
 * compareTo() executes without exception  

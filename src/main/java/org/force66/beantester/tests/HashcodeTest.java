@@ -35,6 +35,11 @@ public class HashcodeTest extends BaseBeanTest {
 				.addContextValue("bean class", klass.toString());
 		}
 		
+		if (instance1.hashCode() == 0 ) {
+			this.setFailureReason("Hashcode value of 0 generally indicates a non-proper implementation.  class="+klass.getName());
+			return false;
+		}
+		
 		/*
 		 * With no changes, the hashcode value should remain constant for all time.  10,000 birds don't
 		 * make a summer, but...
