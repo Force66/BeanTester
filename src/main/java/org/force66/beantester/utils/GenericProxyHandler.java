@@ -20,8 +20,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import org.apache.commons.lang3.ClassUtils;
-
 /**
  * Basic interface proxy that handles involvement for equals() and serialization 
  * @author D. Ashmore
@@ -29,6 +27,7 @@ import org.apache.commons.lang3.ClassUtils;
  */
 public class GenericProxyHandler implements InvocationHandler, Serializable {
 	
+	private static final long serialVersionUID = -364189548578793927L;
 	private Class<?> interfaceType;
 	
 	public GenericProxyHandler()  {}
