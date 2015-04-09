@@ -19,6 +19,9 @@ public class OddTypesBean extends BaseBean {
 	
 	private Statement interfaceType;
 	private String[]  stringArray;
+	private String    noAccessor;
+	private String    noMutator;
+	private String misnamedAccessorsMutators;
 
 	public Statement getInterfaceType() {
 		return interfaceType;
@@ -34,6 +37,22 @@ public class OddTypesBean extends BaseBean {
 
 	public void setStringArray(String[] stringArray) {
 		this.stringArray = stringArray;
+	}
+
+	public String getNoMutator() {
+		return noMutator;
+	}
+
+	public void setNoAccessor(String noAccessor) {
+		this.noAccessor = noAccessor;
+	}
+
+	public String getMisnamed() {
+		return misnamedAccessorsMutators;
+	}
+
+	public void setMisnamed(String misnamedAccessorsMutators) {
+		this.misnamedAccessorsMutators = misnamedAccessorsMutators;
 	}
 
 }

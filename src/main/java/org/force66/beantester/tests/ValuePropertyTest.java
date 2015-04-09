@@ -14,8 +14,10 @@
 package org.force66.beantester.tests;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.force66.beantester.utils.BeanTesterException;
 
 public class ValuePropertyTest implements BeanPropertyTest {
@@ -31,21 +33,18 @@ public class ValuePropertyTest implements BeanPropertyTest {
 			return answer;  // Null test doesn't apply
 		}
 		
+		boolean fieldExists = FieldUtils.getField(bean.getClass(), descriptor.getName(), true) != null;
 		
 		try {
 			if (descriptor.getWriteMethod() != null ) {
 				descriptor.getWriteMethod()
 						.invoke(bean, new Object[] { value });	
-				if (descriptor.getReadMethod() != null) {
-					if (value == null) {
-						answer = descriptor.getReadMethod().invoke(bean) == null;
-					}
-					else {
-						answer = value.equals(descriptor.getReadMethod().invoke(bean));
-					}
-							
-				}
-			}			
+				answer = testReadValue(bean, descriptor, value);
+			}		
+			else if (fieldExists) {
+				FieldUtils.writeField(bean, descriptor.getName(), value, true);
+				answer = testReadValue(bean, descriptor, value);
+			}
 			
 		} catch (Exception e) {
 			throw new BeanTesterException("Failed executing assignment test for accessor/mutator", e)
@@ -53,6 +52,22 @@ public class ValuePropertyTest implements BeanPropertyTest {
 			 .addContextValue("value class", value == null ? null : value.getClass().getName())
 			 .addContextValue("value", value);
 		} 
+		return answer;
+	}
+
+	private boolean testReadValue(Object bean, PropertyDescriptor descriptor,
+			Object value) throws IllegalAccessException,
+			InvocationTargetException {
+		boolean answer = true;
+		if (descriptor.getReadMethod() != null) {
+			if (value == null) {
+				answer = descriptor.getReadMethod().invoke(bean) == null;
+			}
+			else {
+				answer = value.equals(descriptor.getReadMethod().invoke(bean));
+			}
+					
+		}
 		return answer;
 	}
 
