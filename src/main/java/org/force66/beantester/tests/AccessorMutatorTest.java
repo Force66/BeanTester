@@ -86,7 +86,7 @@ public class AccessorMutatorTest extends BaseBeanTest {
             InvocationTargetException {
     	
     	if (!new ValuePropertyTest().testProperty(bean, descriptor, value)) {
-    		throw new TestFailureException("Property test failed")
+    		throw new TestFailureException("Property test failed a value test; we set the property to a test value and expected the property value to be equal afterward")
     			.addContextValue("fieldName", descriptor.getName())
     			.addContextValue("class", bean.getClass().getName())
     			.addContextValue("test value", value);
@@ -98,7 +98,7 @@ public class AccessorMutatorTest extends BaseBeanTest {
             PropertyDescriptor descriptor) throws IllegalAccessException,
             InvocationTargetException {
     	if (!new ValuePropertyTest().testProperty(bean, descriptor, null)) {
-    		throw new TestFailureException("Property test failed")
+    		throw new TestFailureException("Property test failed null test; we set the property to null and expected the property value to be null afterward")
     			.addContextValue("fieldName", descriptor.getName())
     			.addContextValue("class", bean.getClass().getName())
     			.addContextValue("test value", null);
