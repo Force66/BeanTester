@@ -87,8 +87,6 @@ Custom bean tests implment interface [BeanTest](https://github.com/Force66/BeanT
 
 This isn't required, but implementing BeanTest is often easier if you extend [BaseBeanTest](https://github.com/Force66/BeanTester/blob/master/src/main/java/org/force66/beantester/tests/BaseBeanTest.java).
 
-If you decide to develop custom bean tests that other might find useful, please contribute them back.  Just email one of the committers with your suggested addition and we'll consider it.
-
 Then add your test to the BeanTester configuration before running.  An example:
 ```  
 DefaultBeanTesterConfiguration config = new DefaultBeanTesterConfiguration();
@@ -97,3 +95,5 @@ config.getBeanTestList().add( new MyCustomTest() );
 BeanTester beanTester = new BeanTester(config);
 beanTester.testBean(PerformanceSummaryVO.class);  
 ```  
+
+If you decide to develop custom bean tests that other might find useful, please contribute them back.  Just email one of the committers with your suggested addition and we'll consider it.
