@@ -79,3 +79,21 @@ BeanTester comes with support for the following data types out of the box:
 Remember that you can register test values for any custom class.  this means that any data type is supported.
 
 BeanTester does *not* perform nested testing.  That is, it doesn't automatically test classes it encounters used as fields.  Tests for those classes should be separate executions of BeanTester.
+
+Adding Custom Bean Tests
+==================
+
+Custom bean tests implment interface [BeanTest](https://github.com/Force66/BeanTester/blob/master/src/main/java/org/force66/beantester/tests/BeanTest.java).
+
+This isn't required, but implementing BeanTest is often easier if you extend [BaseBeanTest](https://github.com/Force66/BeanTester/blob/master/src/main/java/org/force66/beantester/tests/BaseBeanTest.java).
+
+If you decide to develop custom bean tests that other might find useful, please contribute them back.  Just email one of the committers with your suggested addition and we'll consider it.
+
+Then add your test to the BeanTester configuration before running.  An example:
+```  
+DefaultBeanTesterConfiguration config = new DefaultBeanTesterConfiguration();
+config.getBeanTestList().add( new MyCustomTest() );
+
+BeanTester beanTester = new BeanTester(config);
+beanTester.testBean(PerformanceSummaryVO.class);  
+```  

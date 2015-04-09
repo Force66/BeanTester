@@ -13,8 +13,6 @@
  */
 package org.force66.beantester;
 
-import java.util.Set;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.force66.beantester.testbeans.CollectionsBean;
@@ -22,7 +20,6 @@ import org.force66.beantester.testbeans.DateBean;
 import org.force66.beantester.testbeans.OddTypesBean;
 import org.force66.beantester.testbeans.PrimitiveTypeBean;
 import org.force66.beantester.valuegens.GenericValueGenerator;
-import org.force66.beantester.valuegens.ValueGeneratorFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,10 +63,10 @@ public class BeanTesterTest {
 		beanTester.addExcludedField("fred");
 		beanTester.addExcludedField("barney");
 		
-		Set<String> fieldExclusionSet = (Set<String>)FieldUtils.readDeclaredField(beanTester, "fieldExclusionSet", true);
-		Assert.assertTrue(fieldExclusionSet.contains("fred"));
-		Assert.assertTrue(fieldExclusionSet.contains("barney"));
-		Assert.assertTrue(fieldExclusionSet.size() >= 2);
+		BeanTesterConfiguration config = findConfiguration();
+		Assert.assertTrue(config.getFieldExclusionSet().contains("fred"));
+		Assert.assertTrue(config.getFieldExclusionSet().contains("barney"));
+		Assert.assertTrue(config.getFieldExclusionSet().size() >= 2);
 		
 		try {
 			beanTester.addExcludedField(null);
@@ -80,17 +77,35 @@ public class BeanTesterTest {
 			Assert.assertTrue(e.getMessage().contains("Null or blank fieldName not allowed."));
 		}
 	}
+
+	private BeanTesterConfiguration findConfiguration()
+			throws IllegalAccessException {
+		BeanTesterConfiguration config = (BeanTesterConfiguration)
+				FieldUtils.readDeclaredField(beanTester, "configuration", true);
+		return config;
+	}
 	
 	@Test
 	public void testAddTestValues() throws Exception {
 		beanTester.addTestValues(String.class, new Object[]{"fred", "barney"});
-		ValueGeneratorFactory valueGeneratorFactory = (ValueGeneratorFactory)FieldUtils.readDeclaredField(beanTester, "valueGeneratorFactory", true);
+		BeanTesterConfiguration config = findConfiguration();
 		
-		GenericValueGenerator generator = (GenericValueGenerator)valueGeneratorFactory.forClass(String.class);
+		GenericValueGenerator generator = (GenericValueGenerator)config.getValueGeneratorFactory()	.forClass(String.class);
 		Assert.assertTrue(generator != null);
 		Assert.assertTrue(generator.makeValues().length == 2);
 		Assert.assertTrue(ArrayUtils.contains(generator.makeValues(), "fred"));
 		Assert.assertTrue(ArrayUtils.contains(generator.makeValues(), "barney"));
+	}
+	
+	@Test
+	public void testConstructors() throws Exception {
+		try {
+			new BeanTester(null);
+			Assert.fail();
+		}
+		catch (Exception e) {
+			Assert.assertTrue(e.getMessage().contains("Null BeanTesterConfiguration not allowed"));
+		}
 	}
 
 }

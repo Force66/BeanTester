@@ -13,24 +13,10 @@
  */
 package org.force66.beantester;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang3.Validate;
-import org.force66.beantester.tests.AccessorMutatorTest;
 import org.force66.beantester.tests.BeanTest;
-import org.force66.beantester.tests.ClonableTest;
-import org.force66.beantester.tests.ComparableTest;
-import org.force66.beantester.tests.HashcodeEqualsTest;
-import org.force66.beantester.tests.HashcodeTest;
-import org.force66.beantester.tests.IdentityEqualsTest;
-import org.force66.beantester.tests.SerializableTest;
-import org.force66.beantester.tests.ToStringTest;
 import org.force66.beantester.utils.BeanTesterException;
 import org.force66.beantester.valuegens.GenericValueGenerator;
-import org.force66.beantester.valuegens.ValueGeneratorFactory;
 
 /**
  * <p>Main user class for the BeanTester product.  BeanTester performs monotonous testing on normal
@@ -42,20 +28,14 @@ import org.force66.beantester.valuegens.ValueGeneratorFactory;
  */
 public class BeanTester {
     
-    private Set<String> fieldExclusionSet = new HashSet<String>();
-    private ValueGeneratorFactory valueGeneratorFactory = new ValueGeneratorFactory();
-    private List<BeanTest> beanTestList = new ArrayList<BeanTest>();
+	private BeanTesterConfiguration configuration = null;
 
     public BeanTester() {
-        fieldExclusionSet.add("class"); // Object.class shouldn't be tested.
-        beanTestList.add(new IdentityEqualsTest());
-        beanTestList.add(new ClonableTest());
-        beanTestList.add(new ComparableTest());
-        beanTestList.add(new ToStringTest(valueGeneratorFactory));
-        beanTestList.add(new HashcodeTest());
-        beanTestList.add(new HashcodeEqualsTest());
-        beanTestList.add(new SerializableTest(valueGeneratorFactory));
-        beanTestList.add(new AccessorMutatorTest(valueGeneratorFactory, fieldExclusionSet));
+    	this( new DefaultBeanTesterConfiguration() );
+    }
+    public BeanTester(BeanTesterConfiguration config) {
+    	Validate.notNull(config, "Null BeanTesterConfiguration not allowed.");
+    	configuration = config;
     }
     
     /**
@@ -64,7 +44,7 @@ public class BeanTester {
      */
     public void addExcludedField(String fieldName) {
         Validate.notEmpty(fieldName, "Null or blank fieldName not allowed.");
-        fieldExclusionSet.add(fieldName);
+        configuration.getFieldExclusionSet().add(fieldName);
     }
     
     /**
@@ -75,7 +55,8 @@ public class BeanTester {
     public void addTestValues(Class<?> fieldClass, Object[] values) {
     	Validate.notNull(fieldClass, "Null fieldClass not allowed.");
     	Validate.notEmpty(values, "Null values array not allowed.");
-    	valueGeneratorFactory.registerGenerator(fieldClass, new GenericValueGenerator(values));
+    	configuration.getValueGeneratorFactory()
+    		.registerGenerator(fieldClass, new GenericValueGenerator(values));
     }
     
     /**
@@ -97,7 +78,7 @@ public class BeanTester {
      */
     public void testBean(Class<?> beanClass, Object[] constructorArgs)  {
         Validate.notNull(beanClass, "Null beanClass not allowed.");
-        for (BeanTest test: beanTestList) {
+        for (BeanTest test: configuration.getBeanTestList()) {
     		if (!test.testBeanClass(beanClass, constructorArgs)) {
     			throw new BeanTesterException("FailedTest")
     			.addContextValue("test", test.getClass().getName())
