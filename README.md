@@ -23,7 +23,7 @@ System Requirements
 ==================
 * Java JDK 6.0 or above (it was compiled under JDK 7 using 1.6 as the target source).  
 * Apache Commons Lang version 3.0 or above  
-* Apache Commons Beanutils (tested with 1.9.2 but 1.8+ previous versions will likely work)  
+* Apache Commons Beanutils (tested with 1.9.2 but earlier versions will likely work)  
 
 Installation Instructions
 ==================
