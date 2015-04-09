@@ -20,6 +20,11 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.force66.beantester.utils.BeanTesterException;
 
+/**
+ * Tests an individual bean accessor and mutators for a specific property given a test value.
+ * @author D. Ashmore
+ *
+ */
 public class ValuePropertyTest implements BeanPropertyTest {
 
 	@Override
@@ -42,6 +47,10 @@ public class ValuePropertyTest implements BeanPropertyTest {
 				answer = testReadValue(bean, descriptor, value);
 			}		
 			else if (fieldExists) {
+				/*
+				 * Accessor exists, but no mutator.  Test the accessor by forcing the test value into the field
+				 * backing that accessor.
+				 */
 				FieldUtils.writeField(bean, descriptor.getName(), value, true);
 				answer = testReadValue(bean, descriptor, value);
 			}
