@@ -2,8 +2,8 @@
 Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.  If your organization has code coverage requirements, testing beans is some of the most monotonous work.  It's mindless and the less test code you need to write for this, the better.  BeanTester was written to get out of this monotonous work.  Predecessors to it have been copy/pasted/improved into almost a dozen projects over the years.  
 
 Specifically, the following tests are performed:  
-* All accessors (e.g. setXXX() methods) execute without exception    
-* All mutators (e.g. getXXX() methods) execute without exception  
+* All accessors (e.g. getXXX() methods) execute without exception    
+* All mutators (e.g. setXXX() methods) execute without exception  
 * accessors return the value assigned to them via their corresponding mutator (e.g. getXXX() returns the same value submitted with setXXX())  
 * An instance equals() itself  
 * hashcode() runs without exception    
