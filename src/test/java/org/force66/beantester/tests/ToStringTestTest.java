@@ -43,14 +43,28 @@ public class ToStringTestTest {
 		}
 		
 		TestBean.exceptionToThrow = null;
+		TestBean.calledWithValue = false;
+		test.testBeanClass(TestBean.class, null);
+		Assert.assertTrue(TestBean.calledWithValue);
+		
+		TestBean.exceptionToThrow = null;
 		TestBean.fieldExceptionToThrow = new RuntimeException("splat");
+		test.setFailureReason("foo");
 		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == true);
+		Assert.assertTrue(test.getFailureReason() == null);
+		
+		TestBean.toStringNullInd = true;		
+		Assert.assertTrue(test.testBeanClass(TestBean.class, null) == false);
+		Assert.assertTrue(test.getFailureReason() != null);
+		
 	}
 	
 	public static class TestBean {
 		
 		private static RuntimeException exceptionToThrow=null;
 		private static RuntimeException fieldExceptionToThrow=null;
+		private static boolean toStringNullInd = false;
+		private static boolean calledWithValue = false;
 		private String bogusField;
 
 		@Override
@@ -58,6 +72,7 @@ public class ToStringTestTest {
 			if (exceptionToThrow != null) {
 				throw exceptionToThrow;
 			}
+			if (toStringNullInd)   return null;
 			return super.toString();
 		}
 
@@ -68,6 +83,9 @@ public class ToStringTestTest {
 		public void setBogusField(String bogusField) {
 			if (fieldExceptionToThrow != null) {
 				throw fieldExceptionToThrow;
+			}
+			if (bogusField != null) {
+				calledWithValue = true;
 			}
 			this.bogusField = bogusField;
 		}

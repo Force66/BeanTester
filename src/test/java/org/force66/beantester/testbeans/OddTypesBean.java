@@ -17,11 +17,16 @@ import java.sql.Statement;
 
 public class OddTypesBean extends BaseBean {
 	
+	public static enum OddEnum {ONE, TWO, THREE};
+	
 	private Statement interfaceType;
 	private String[]  stringArray;
 	private String    noAccessor;
 	private String    noMutator;
 	private String misnamedAccessorsMutators;
+	private Class<?>   fieldClass;
+	private OddEnum		oddEnumField;
+	
 
 	public Statement getInterfaceType() {
 		return interfaceType;
@@ -53,6 +58,22 @@ public class OddTypesBean extends BaseBean {
 
 	public void setMisnamed(String misnamedAccessorsMutators) {
 		this.misnamedAccessorsMutators = misnamedAccessorsMutators;
+	}
+
+	public Class<?> getFieldClass() {
+		return fieldClass;
+	}
+
+	public void setFieldClass(Class<?> fieldClass) {
+		this.fieldClass = fieldClass;
+	}
+
+	public OddEnum getOddEnumField() {
+		return oddEnumField;
+	}
+
+	public void setOddEnumField(OddEnum oddEnumField) {
+		this.oddEnumField = oddEnumField;
 	}
 
 }
