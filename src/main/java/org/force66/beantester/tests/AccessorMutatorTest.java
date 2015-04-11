@@ -46,9 +46,13 @@ public class AccessorMutatorTest extends BaseBeanTest {
 	public boolean testBeanClass(Class<?> klass, Object[] constructorArgs) {
 		this.setFailureReason(null);
 		Object bean = InstantiationUtils.safeNewInstance(klass, constructorArgs);
+		Object localBean = null;
+		
 		for (PropertyDescriptor descriptor: PropertyUtils.getPropertyDescriptors(bean)) {
             if ( !fieldExclusionSet.contains(descriptor.getName())) {
-                try {testProperty(bean, descriptor);}
+            	// Use a fresh instance for each property test
+            	localBean = InstantiationUtils.safeNewInstance(klass, constructorArgs);
+                try {testProperty(localBean, descriptor);}
                 catch (TestFailureException e) {
                 	this.setFailureReason(e.getMessage());
                 	return false;
