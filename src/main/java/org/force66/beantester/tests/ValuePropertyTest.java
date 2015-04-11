@@ -54,6 +54,13 @@ public class ValuePropertyTest implements BeanPropertyTest {
 				FieldUtils.writeField(bean, descriptor.getName(), value, true);
 				answer = testReadValue(bean, descriptor, value);
 			}
+			if (descriptor.getReadMethod() != null) {
+				/*
+				 * If an accessor exists, but has no corresponding mutator or field, all we can do
+				 * is execute it to make sure it doesn't except.
+				 */
+				descriptor.getReadMethod().invoke(bean);
+			}
 			
 		} catch (Exception e) {
 			throw new BeanTesterException("Failed executing assignment test for accessor/mutator", e)
