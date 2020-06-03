@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.force66</groupId>
 	<artifactId>BeanTester</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-rc1</version>
 	<name>BeanTester</name>
 	<description>Tests normal bean methods such as accessors, mutators, equals(), hashcode(), etc.</description>
 
@@ -141,6 +141,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+			        <additionalparam>-Xdoclint:none</additionalparam>
+			        <additionalOptions>-Xdoclint:none</additionalOptions>
+			        <additionalJOption>-Xdoclint:none</additionalJOption>
+			    </configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>

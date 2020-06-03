@@ -42,6 +42,11 @@ public class ToStringTest extends BaseBeanTest {
 				this.setFailureReason("toString() equals null; a favorite pit test plug to see if toString() is being tested properly");
 				return false;
 			}
+
+			if ("".equals(instance1.toString())) {
+				setFailureReason("toString() equals \"\"; a favorite pit test plug to see if toString() is being tested properly");
+				return false;
+			}
 			
 			//  Testing if toString() excepts if fields have values....
 			InjectionUtils.injectValues(instance1, valueGeneratorFactory, false);
